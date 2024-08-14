@@ -1,0 +1,37 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/font" as *;
+@use "../../styles/partials/typography" as *;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1rem;
+  //   background-color: #2e66e5;
+  background-color: $blue-background;
+  //   background-image: url("../../assest/images/Hydrology.jpg");
+  //   background-repeat: no-repeat;
+  //   object-fit: cover;
+  @include tablet {
+    padding: 1rem 2.5rem;
+  }
+  @include desktop {
+    padding: 1rem 5rem;
+  }
+  &__logo {
+    color: $blue-text;
+  }
+  &__logo-link {
+    text-decoration: none;
+  }
+  &__login {
+    color: $blue-text;
+    &:hover {
+      color: white;
+    }
+  }
+  &__login-link {
+    text-decoration: none;
+  }
+}
