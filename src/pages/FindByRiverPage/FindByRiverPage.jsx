@@ -61,7 +61,7 @@ function FindByRiverPage() {
           onChange={(e) => setSelectRiver(e.target.value)}
           value={selectRiver}
           className={`river-page__river-add ${
-            !formError && selectRiver ? "" : "river-page__river-add--inactive"
+            !formError ? "" : "river-page__river-add--inactive"
           }`}
         >
           <option value="" disabled>
@@ -80,7 +80,7 @@ function FindByRiverPage() {
         </select>
         <div
           className={`river-page__form-warning ${
-            formError && !selectRiver ? "river-page__form-warning--display" : ""
+            formError ? "river-page__form-warning--display" : ""
           }`}
         >
           <p className="river-page__form-message">This field is required</p>

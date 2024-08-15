@@ -38,6 +38,7 @@ function SelectedRiverPage() {
             <Link
               className="river-site__site-link"
               to={`/sites/${site.site_id}`}
+              state={{ site_id: site.site_id, site_name: site.site_name }}
             >
               <span>{site.site_name.toLowerCase()}</span> with station id
               {site.site_id}

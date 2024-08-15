@@ -2,7 +2,7 @@
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/font" as *;
 @use "../../styles/partials/typography" as *;
-
+@use "../../styles/partials/global" as *;
 .header {
   display: flex;
   justify-content: space-between;

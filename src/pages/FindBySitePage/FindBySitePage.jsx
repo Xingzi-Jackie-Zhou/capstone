@@ -12,6 +12,7 @@ function FindBySitePage() {
   const [selectId, setSelectId] = useState("");
   const [formError, setFormError] = useState(false);
   const [siteNameIdMap, setSiteNameIdMap] = useState({});
+  const [siteIdNameMap, setSiteIdNameMap] = useState({});
 
   async function fetchSiteList() {
     try {
@@ -25,6 +26,16 @@ function FindBySitePage() {
         }
       });
 
+      const idNameMap = {};
+      results.forEach((site) => {
+        if (!idNameMap[site.site_id]) {
+          idNameMap[site.site_id] = site.site_name;
+        }
+      });
+
+      setSiteNameIdMap(nameIdMap);
+      setSiteIdNameMap(idNameMap);
+
       const uniqueSiteNames = [
         ...new Set(results.map((site) => site.site_name)),
       ];
@@ -32,7 +43,6 @@ function FindBySitePage() {
 
       setSiteNames(uniqueSiteNames);
       setSiteIds(uniqueSiteIds);
-      setSiteNameIdMap(nameIdMap);
     } catch (error) {
       console.error("Getting site list error:", error);
     }
@@ -60,10 +70,13 @@ function FindBySitePage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formValid = isFormValid();
+    const idToNavigate = selectSite || siteIdNameMap[selectId];
+    const siteToNavigate = selectId || siteNameIdMap[selectSite];
     if (formValid) {
-      const siteToNavigate = selectId || siteNameIdMap[selectSite];
-      if (siteToNavigate) {
-        navigate(`/site/${siteToNavigate}`);
+      if (siteToNavigate && idToNavigate) {
+        navigate(`/sites/${siteToNavigate}`, {
+          state: { site_name: idToNavigate },
+        });
       }
     }
   };
@@ -89,7 +102,7 @@ function FindBySitePage() {
               }}
               value={selectSite}
               className={`site-page__site-add ${
-                !formError && selectSite ? "" : "site-page__site-add--inactive"
+                !formError ? "" : "site-page__site-add--inactive"
               }`}
             >
               <option value="" disabled>
@@ -117,7 +130,7 @@ function FindBySitePage() {
               onChange={(e) => setSelectId(e.target.value)}
               value={selectId}
               className={`site-page__site-add ${
-                !formError && selectId ? "" : "site-page__site-add--inactive"
+                !formError ? "" : "site-page__site-add--inactive"
               }`}
             >
               <option value="" disabled>
@@ -147,10 +160,7 @@ function FindBySitePage() {
 
         <div className="site-page__button-container">
           <button className="site-page__button">Confirm</button>
-          <button
-            className="site-page__cancel-button site-page__cancel-button--mobile"
-            onClick={handleCancel}
-          >
+          <button className="site-page__cancel-button" onClick={handleCancel}>
             Cancel
           </button>
         </div>
