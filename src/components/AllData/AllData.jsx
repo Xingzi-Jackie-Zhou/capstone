@@ -127,7 +127,7 @@ const AllData = ({ dataList, startDate, endDate, idInUse, siteNameInUse }) => {
 
   // Data and options for the chart
   const chartData = {
-    labels: dataList?.map((item) => FormatDate(item.date)), // X-axis labels
+    labels: dataList?.map((item) => FormatDate(item.discharge_date)), // X-axis labels
     datasets: [
       {
         label: "Discharge Rate",
@@ -181,7 +181,7 @@ const AllData = ({ dataList, startDate, endDate, idInUse, siteNameInUse }) => {
       y: {
         title: {
           display: true,
-          text: "Value",
+          text: "Value for parameters",
         },
         beginAtZero: true,
       },

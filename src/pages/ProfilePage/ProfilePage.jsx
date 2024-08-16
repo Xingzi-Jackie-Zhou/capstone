@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const baseUrl = "http://localhost:8080";
-const profileUrl = `${baseUrl}/profile`;
-
 function ProfilePage() {
+  const baseUrl = import.meta.env.VITE_API_URL;
+  const profileUrl = `${baseUrl}/users/profile`;
+
   const [isLoading, setIsLoading] = useState(true);
-  const [userInfo, setUserInfo] = useState({});
-  const token = sessionStorage.getItem("authToken");
+  const [profile, setProfile] = useState({});
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
     // Here grab the token from sessionStorage and then make an axios request to profileUrl endpoint.
@@ -20,17 +20,17 @@ function ProfilePage() {
           },
         });
         setIsLoading(false);
-        setUserInfo(response.data);
+        setProfile(response.data);
         console.log(response);
       } catch (error) {
-        // sessionStorage.removeItem("authToken");
+        //sessionStorage.removeItem("token");
         console.error(error);
       }
     };
     fetchProfile();
   }, []);
 
-  return isLoading ? <h1>Loading...</h1> : <h1>Welcome {userInfo.name}!</h1>;
+  return isLoading ? <h1>Loading...</h1> : <h1>Welcome {profile.userName}!</h1>;
 }
 
 export default ProfilePage;

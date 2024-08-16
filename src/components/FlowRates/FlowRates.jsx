@@ -69,7 +69,7 @@ const FlowRates = ({
 
   //Data and options for the chart
   const chartData = {
-    labels: dataList?.map((item) => FormatDate(item.discharge_date)), // X-axis labels
+    labels: dataList?.map((item) => FormatDate(item.date)), // X-axis labels
     datasets: [
       {
         label: "Discharge Rate", // Label for the dataset
