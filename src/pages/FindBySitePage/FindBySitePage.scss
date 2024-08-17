@@ -7,7 +7,6 @@
 .site-page {
   padding: 1rem;
   @include tablet {
-    display: flex;
     padding: 2.5rem;
   }
   @include desktop {
@@ -23,6 +22,28 @@
     &--display {
       display: block;
       color: red;
+    }
+  }
+  &__button-container {
+    padding: 0.75rem 0;
+    @include tablet {
+      display: flex;
+      flex-direction: column;
+      justify-content: left;
+      padding-bottom: 1.25rem;
+    }
+    @include desktop {
+      // width: 60%;
+      padding-bottom: 2rem;
+    }
+  }
+  &__cancel-button,
+  &__button {
+    padding: 0.25rem;
+    margin-bottom: 0.75rem;
+    max-height: 2.5rem;
+    @include tablet {
+      width: 30%;
     }
   }
 }

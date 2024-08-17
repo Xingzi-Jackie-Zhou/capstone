@@ -81,7 +81,7 @@ function ResultPage() {
 
   return (
     <div className="result-page">
-      <h1>Results </h1>
+      <h1 className="result-page__title">Results </h1>
       {renderContent()}
     </div>
   );

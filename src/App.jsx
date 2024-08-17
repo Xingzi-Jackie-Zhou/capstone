@@ -13,7 +13,7 @@ import SelectedSitePage from "./pages/SelectedSitePage/SelectedSitePage.jsx";
 import ResultPage from "./pages/ResultPage/ResultPage.jsx";
 
 import PredictionPage from "./pages/PredictionPage/PredictionPage.jsx";
-//import UploadPage from "./pages/UploadPage/UploadPage.jsx";
+import UploadPage from "./pages/UploadPage/UploadPage.jsx";
 function App() {
   return (
     <>
@@ -24,9 +24,13 @@ function App() {
           <Route path="/users/signup" element={<SignupPage />} />
           <Route path="/users/login" element={<LoginPage />} />
           <Route path="/users/profile" element={<ProfilePage />} />
-          {/* <Route path="/users/upload" element={<UploadPage />} />  */}
+          <Route path="/users/:userName/upload" element={<UploadPage />} />
           <Route path="/sites" element={<FindBySitePage />} />
           <Route path="/sites/:siteId" element={<SelectedSitePage />} />
+          <Route
+            path="users/:userName/sites/:siteId"
+            element={<SelectedSitePage />}
+          />
           <Route
             path="/sites/:siteId/flowRates/selectedDate"
             element={<ResultPage />}

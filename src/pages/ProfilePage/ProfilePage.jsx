@@ -1,36 +1,91 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ProfilePage() {
+  const navigate = useNavigate();
   const baseUrl = import.meta.env.VITE_API_URL;
   const profileUrl = `${baseUrl}/users/profile`;
 
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState({});
+  //const [sites, setSites] = useState([]);
   const token = sessionStorage.getItem("token");
 
-  useEffect(() => {
-    // Here grab the token from sessionStorage and then make an axios request to profileUrl endpoint.
-    // Remember to include the token in Authorization header
-    const fetchProfile = async () => {
-      try {
-        const response = await axios.get(profileUrl, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setIsLoading(false);
-        setProfile(response.data);
-        console.log(response);
-      } catch (error) {
-        //sessionStorage.removeItem("token");
-        console.error(error);
-      }
-    };
-    fetchProfile();
-  }, []);
+  const fetchProfile = async () => {
+    try {
+      const response = await axios.get(profileUrl, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setIsLoading(false);
+      setProfile(response.data);
+      console.log(response);
+    } catch (error) {
+      //sessionStorage.removeItem("token");
+      console.error(error);
+    }
+  };
 
-  return isLoading ? <h1>Loading...</h1> : <h1>Welcome {profile.userName}!</h1>;
+  // const fetchUserSite = async () => {
+  //   try {
+  //     // Fetch user's sites
+  //     const sitesResponse = await axios.get(`${baseUrl}/users/sites/siteId`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     setSites(sitesResponse.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  useEffect(() => {
+    fetchProfile();
+  }, [profileUrl]);
+
+  // useEffect(() => {
+  //   fetchUserSite();
+  // }, [siteId]);
+
+  // const handleSiteClick = (siteId) => {
+  //   // Handle site button click (e.g., navigate to site details page)
+  // };
+
+  const clickUpload = () => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      navigate("/users/:userName/upload");
+    } else {
+      navigate("/users/login");
+    }
+  };
+
+  return isLoading ? (
+    <h1>Loading...</h1>
+  ) : (
+    <div>
+      <h1>Welcome {profile.userName}!</h1>
+      <div>
+        <h2>Your Sites:</h2>
+        {/* {sites?.map((site) => (
+          <button
+            key={site.id}
+            onClick={() => handleSiteClick(site.station_id)}
+          >
+            {site.site_name}
+          </button>
+        ))} */}
+      </div>
+      <div className="directory__button-container">
+        <button className="directory__upload-site" onClick={clickUpload}>
+          Upload a site
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default ProfilePage;

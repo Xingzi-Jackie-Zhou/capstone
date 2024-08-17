@@ -3,3 +3,97 @@
 @use "../../styles/partials/font" as *;
 @use "../../styles/partials/typography" as *;
 @use "../../styles/partials/global" as *;
+
+.result-page {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    @include desktop {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  &__notice {
+    @include tablet {
+      display: none;
+    }
+  }
+  &__chart {
+    display: none;
+    @include tablet {
+      display: flex;
+    }
+  }
+
+  &__chart-caption {
+    margin-top: 0;
+    font-size: 0.75rem;
+    // @include desktop {
+    //   width: 60%;
+    // }
+  }
+  &__bold {
+    font-weight: bold;
+    font-size: 0.675rem;
+    &--subheader {
+      font-size: 0.8125rem;
+    }
+  }
+  &__statistics {
+    padding-bottom: 0.75rem;
+    @include tablet {
+      padding-bottom: 1.25rem;
+    }
+    @include desktop {
+      padding-bottom: 2rem;
+    }
+  }
+  &__statistics > p {
+    font-size: 0.675rem;
+    margin: 0;
+  }
+
+  &__button-container {
+    padding-bottom: 0.75rem;
+    @include tablet {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 1.25rem;
+    }
+    @include desktop {
+      width: 60%;
+      padding-bottom: 2rem;
+      align-items: left;
+      //  justify-content: left;
+    }
+  }
+  &__download-chart {
+    padding: 0.25rem;
+    margin-bottom: 0.75rem;
+    max-height: 2.5rem;
+    @include tablet {
+      width: 30%;
+    }
+    @include desktop {
+      width: 30%;
+    }
+  }
+  &__download-data {
+    padding: 0.25rem;
+    margin-bottom: 0.75rem;
+    max-height: 2.5rem;
+    @include tablet {
+      width: 30%;
+    }
+  }
+  &__return-link {
+    margin-bottom: 0.75rem;
+    max-height: 2.5rem;
+    @include tablet {
+      width: 30%;
+    }
+  }
+  &__return-button {
+    padding: 0.25rem;
+  }
+}

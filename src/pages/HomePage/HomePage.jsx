@@ -9,7 +9,12 @@ function HomePage() {
     navigate("/rivers");
   };
   const clickUpload = () => {
-    navigate("/upload");
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      navigate("/users/upload");
+    } else {
+      navigate("/users/login");
+    }
   };
   const clickPredict = () => {
     navigate("/prediction");

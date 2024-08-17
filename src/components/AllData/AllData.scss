@@ -3,3 +3,75 @@
 @use "../../styles/partials/font" as *;
 @use "../../styles/partials/typography" as *;
 @use "../../styles/partials/global" as *;
+
+.result-page {
+  //   &__container-all {
+  //     display: flex;
+  //     flex-direction: column;
+  //     @include desktop {
+  //       justify-content: center;
+  //       align-items: center;
+  //     }
+  //   }
+  &__notice {
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &__statistics-all {
+    border-top: 0.125rem solid black;
+    margin-bottom: 1rem;
+    // @include desktop {
+    //   width: 70%;
+    // }
+  }
+  &__statistics-title {
+    display: none;
+    @include tablet {
+      display: flex;
+      //  justify-content: space-between;
+      border-bottom: 0.125rem solid black;
+    }
+    & > p {
+      width: 20%;
+      text-align: center;
+    }
+  }
+
+  &__statistics-content {
+    padding: 0.25rem 0;
+    border-bottom: 0.125rem solid black;
+    @include tablet {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__statistics-content > p {
+    @include tablet {
+      width: 20%;
+      display: flex;
+      margin: 0;
+      justify-content: center;
+    }
+  }
+  &__content-all {
+    display: flex;
+  }
+  &__row-title {
+    display: none;
+    @include tablet {
+      display: flex;
+    }
+  }
+
+  &__note,
+  &__unit {
+    display: flex;
+    @include tablet {
+      display: none;
+    }
+  }
+}

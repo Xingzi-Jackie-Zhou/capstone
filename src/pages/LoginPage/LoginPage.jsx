@@ -15,6 +15,7 @@ const LoginPage = () => {
         userName,
         password,
       });
+      sessionStorage.setItem("userName", userName);
       sessionStorage.setItem("token", response.data.token);
       navigate("/users/profile");
     } catch (error) {

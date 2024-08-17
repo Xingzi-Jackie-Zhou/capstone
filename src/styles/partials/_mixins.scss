@@ -17,8 +17,9 @@
   background-color: $button-color;
   color: $light-grey;
   width: 100%;
-  border-radius: 0.25rem;
+  border-radius: 0.375rem;
   border: none;
+  cursor: pointer;
   @include h3-style;
   &:hover {
     background-color: $button-hover-color;

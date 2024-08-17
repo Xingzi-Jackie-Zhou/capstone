@@ -1,4 +1,5 @@
 import "./AllData.scss";
+import exportFromJSON from "export-from-json";
 import FormatDate from "../../utility/FormatDate/FormatDate.jsx";
 import { Link } from "react-router-dom";
 import { Line } from "react-chartjs-2";
@@ -134,28 +135,28 @@ const AllData = ({ dataList, startDate, endDate, idInUse, siteNameInUse }) => {
         data: dataList?.map((item) => item.discharge),
         borderColor: "rgba(75,192,192,1)",
         backgroundColor: "rgba(75,192,192,0.2)",
-        fill: true,
+        fill: false,
       },
       {
         label: "Water Level",
         data: dataList?.map((item) => item.water_level),
         borderColor: "rgba(255,99,132,1)",
         backgroundColor: "rgba(255,99,132,0.2)",
-        fill: true,
+        fill: false,
       },
       {
         label: "Average Temperature",
         data: dataList?.map((item) => item.ave_temperature),
         borderColor: "rgba(153,102,255,1)",
         backgroundColor: "rgba(153,102,255,0.2)",
-        fill: true,
+        fill: false,
       },
       {
         label: "Total Precipitation",
         data: dataList?.map((item) => item.total_preciptation),
         borderColor: "rgba(255,159,64,1)",
         backgroundColor: "rgba(255,159,64,0.2)",
-        fill: true,
+        fill: false,
       },
     ],
   };
@@ -176,27 +177,95 @@ const AllData = ({ dataList, startDate, endDate, idInUse, siteNameInUse }) => {
         title: {
           display: true,
           text: "Date",
+          color: "#000000",
+          font: {
+            size: 16,
+            weight: "bold",
+          },
+        },
+        grid: {
+          display: true,
+          drawBorder: true,
+          color: "#e0e0e0",
+          lineWidth: 1,
+          drawOnChartArea: true,
+          drawTicks: true,
+          tickLength: 4,
+        },
+        ticks: {
+          display: true,
+          color: "#000000",
+          font: {
+            size: 12,
+          },
+          autoSkip: true,
+          maxRotation: 90,
+          minRotation: 0,
         },
       },
       y: {
         title: {
           display: true,
           text: "Value for parameters",
+          color: "#000000",
+          font: {
+            size: 16,
+            weight: "bold",
+          },
         },
-        beginAtZero: true,
+        grid: {
+          display: true,
+          drawBorder: true,
+          color: "#e0e0e0",
+          lineWidth: 1,
+          drawOnChartArea: true,
+          drawTicks: true,
+          tickLength: 4,
+        },
+        ticks: {
+          display: true,
+          color: "#000000",
+          font: {
+            size: 12,
+          },
+          autoSkip: true,
+          maxRotation: 90,
+          minRotation: 0,
+        },
       },
     },
   };
 
+  //download dataList as a csv file
+  const downloadData = () => {
+    const fileName = `download_${idInUse}_data`;
+    const exportType = exportFromJSON.types.csv;
+    console.log("DataList:", dataList);
+    //   console.log("dataListArray", dataListArray);
+    try {
+      exportFromJSON({ data: dataList, fileName, exportType });
+    } catch (error) {
+      console.error("Export download failed:", error);
+    }
+  };
+
   return (
-    <>
+    <div className="result-page__container">
       <div className="result-page__chart-container">
-        <Line data={chartData} options={options} />
-        <p>
-          Metrics over time period from {startDate} to {endDate} for site
+        <p className="result-page__notice">
+          No chart avaliable in mobile view, please switch to tabelt or laptop.{" "}
+        </p>
+        <div className="result-page__chart">
+          <Line data={chartData} options={options} />
+        </div>
+        <p className="result-page__chart-caption">
+          <span className="result-page__bold result-page__bold--subheader">
+            Figure caption :{" "}
+          </span>{" "}
+          Metrics over time period from {startDate} to {endDate} for site{" "}
           {idInUse}, {siteNameInUse}.
         </p>
-        <div className="result-page__statistics">
+        <div className="result-page__statistics-all">
           <div className="result-page__statistics-title">
             <p>Statistics</p>
             <p>Discharge (m³ s⁻¹)</p>
@@ -204,34 +273,91 @@ const AllData = ({ dataList, startDate, endDate, idInUse, siteNameInUse }) => {
             <p>Temperature (°C)</p>
             <p>Preciptation (mm)</p>
           </div>
-          <div>
-            <p>Max</p>
-            <p>{maxDischarge}</p>
-            <p>{maxLevel}</p>
-            <p>{maxTemp}</p>
-            <p>{maxPrep}</p>
+          <div className="result-page__statistics-content">
+            <p className="result-page__row-title">Max</p>
+            <p className="result-page__content-all">
+              <span className="result-page__note">Max Discharge: </span>
+              {maxDischarge}
+              <span className="result-page__unit"> m³ s⁻¹</span>
+            </p>
+            <p className="result-page__content-all">
+              <span className="result-page__note">Max Water Level: </span>
+              {maxLevel}
+              <span className="result-page__unit"> m</span>
+            </p>
+            <p className="result-page__content-all">
+              <span className="result-page__note">Max Temperature: </span>
+              {maxTemp}
+              <span className="result-page__unit"> °C</span>
+            </p>
+            <p className="result-page__content-all">
+              <span className="result-page__note">Max Preciptation: </span>
+              {maxPrep}
+              <span className="result-page__unit"> mm</span>
+            </p>
           </div>
-          <div>
-            <p>Min</p>
-            <p>{minDischarge}</p>
-            <p>{minLevel}</p>
-            <p>{minTemp}</p>
-            <p>{minPrep}</p>
+          <div className="result-page__statistics-content">
+            <p className="result-page__row-title">Min</p>
+            <p className="result-page__content-all">
+              <span className="result-page__note">Min Discharge: </span>
+              {minDischarge}
+              <span className="result-page__unit"> m³ s⁻¹</span>
+            </p>
+            <p className="result-page__content-all">
+              <span className="result-page__note">Min Water Level: </span>
+              {minLevel}
+              <span className="result-page__unit"> m</span>
+            </p>
+            <p className="result-page__content-all">
+              <span className="result-page__note">Min Temperature: </span>
+              {minTemp}
+              <span className="result-page__unit"> °C</span>
+            </p>
+            <p className="result-page__content-all">
+              <span className="result-page__note">Min Preciptation: </span>
+              {minPrep}
+              <span className="result-page__unit"> mm</span>
+            </p>
           </div>
-          <div>
-            <p>Mean</p>
-            <p>{avgDischarge}</p>
-            <p>{avgLevel}</p>
-            <p>{avgTemp}</p>
-            <p>{avgPrep}</p>
+          <div className="result-page__statistics-content">
+            <p className="result-page__row-title">Mean</p>
+            <p className="result-page__content-all">
+              <span className="result-page__note">Mean Discharge: </span>
+              {avgDischarge}
+              <span className="result-page__unit"> m³ s⁻¹</span>
+            </p>
+            <p className="result-page__content-all">
+              <span className="result-page__note">Mean Water Level: </span>
+              {avgLevel}
+              <span className="result-page__unit"> m</span>
+            </p>
+            <p className="result-page__content-all">
+              <span className="result-page__note">Mean Temperature: </span>
+              {avgTemp}
+              <span className="result-page__unit"> °C</span>
+            </p>
+            <p className="result-page__content-all">
+              <span className="result-page__note">Mean Preciptation: </span>
+              {avgPrep}
+              <span className="result-page__unit"> mm</span>
+            </p>
           </div>
         </div>
-        <button onClick={downloadChart}>Download Chart</button>
       </div>
-      <Link className="result-page__return-link" to={`/sites/${idInUse}`}>
-        <p>Return to previous page</p>
-      </Link>
-    </>
+      <div className="result-page__button-container">
+        <button className="result-page__download-chart" onClick={downloadChart}>
+          Download Chart
+        </button>
+        <button className="result-page__download-data" onClick={downloadData}>
+          Download data
+        </button>
+        <Link className="result-page__return-link" to={`/sites/${idInUse}`}>
+          <button className="result-page__return-button">
+            Return to previous page
+          </button>
+        </Link>
+      </div>
+    </div>
   );
 };
 
