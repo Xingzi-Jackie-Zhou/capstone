@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
-  console.log(sessionStorage.getItem("userName"));
+  console.log(sessionStorage.getItem("username"));
   const navigate = useNavigate();
   const handleLogout = () => {
     sessionStorage.removeItem("token");
-    sessionStorage.removeItem("userName");
+    sessionStorage.removeItem("username");
     navigate("/");
   };
 
@@ -21,11 +21,11 @@ function Header() {
       <div className="header__login-contanier">
         <Link to="users/login" className="header__login-link">
           <h3 className="header__login">
-            {!sessionStorage.getItem("userName") ? (
+            {!sessionStorage.getItem("username") ? (
               "Login"
             ) : (
               <div>
-                {sessionStorage.getItem("userName")}
+                {sessionStorage.getItem("username")}
                 <button onClick={handleLogout}>Logout</button>
               </div>
             )}

@@ -23,14 +23,14 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/users/signup" element={<SignupPage />} />
           <Route path="/users/login" element={<LoginPage />} />
-          <Route path="/users/profile" element={<ProfilePage />} />
-          <Route path="/users/:userName/upload" element={<UploadPage />} />
+          <Route path="/users/:userNameId/profile" element={<ProfilePage />} />
+          <Route path="/users/:userNameId/upload" element={<UploadPage />} />
           <Route path="/sites" element={<FindBySitePage />} />
           <Route path="/sites/:siteId" element={<SelectedSitePage />} />
-          <Route
-            path="users/:userName/sites/:siteId"
+          {/* <Route
+            path="users/:userNameId/sites/:siteId"
             element={<SelectedSitePage />}
-          />
+          /> */}
           <Route
             path="/sites/:siteId/flowRates/selectedDate"
             element={<ResultPage />}

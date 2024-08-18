@@ -43,7 +43,9 @@ function FindByRiverPage() {
       navigate(`/rivers/${selectRiver}`);
     }
   };
-
+  const clickSite = () => {
+    navigate("/sites");
+  };
   const handleCancel = () => {
     navigate("/");
   };
@@ -83,7 +85,7 @@ function FindByRiverPage() {
             formError ? "river-page__form-warning--display" : ""
           }`}
         >
-          <p className="river-page__form-message">This field is required</p>
+          <p className="river-page__form-message">* This field is required *</p>
         </div>
 
         <div className="river-page__button-container">
@@ -93,6 +95,11 @@ function FindByRiverPage() {
           </button>
         </div>
       </form>
+      <div className="river-page__button-container">
+        <button className="river-page__button" onClick={clickSite}>
+          Find by site
+        </button>
+      </div>
     </div>
   );
 }

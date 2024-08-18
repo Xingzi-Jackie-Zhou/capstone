@@ -27,12 +27,12 @@ function SelectedRiverPage() {
 
   return (
     <section className="river-site">
-      <h2>River name: {riverName}</h2>
-      <p>
+      <h2 className="river-site__sub-title">River name: {riverName} River</h2>
+      <p className="river-site__conclusion">
         A total of {numberOfSite} gauge sites were found on the river. Please
         select the site you are interested in below.
       </p>
-      <ul>
+      <ul className="river-site__site-list">
         {siteList?.map((site) => (
           <li className="river-site__site-details" key={site.id}>
             <Link
@@ -40,14 +40,19 @@ function SelectedRiverPage() {
               to={`/sites/${site.site_id}`}
               state={{ site_id: site.site_id, site_name: site.site_name }}
             >
-              <span>{site.site_name.toLowerCase()}</span> with station id
-              {site.site_id}
+              <span className="river-site__style">
+                {site.site_name.toLowerCase()}
+              </span>{" "}
+              with station id {site.site_id}
             </Link>
           </li>
         ))}
       </ul>
       <Link className="river-site__river-link" to={`/rivers`}>
         <p>Return to previous page</p>
+      </Link>
+      <Link className="river-site__river-link" to={`/sites`}>
+        <button className="river-site__button">Find by site</button>
       </Link>
     </section>
   );

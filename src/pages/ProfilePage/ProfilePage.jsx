@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 function ProfilePage() {
   const navigate = useNavigate();
   const baseUrl = import.meta.env.VITE_API_URL;
-  const profileUrl = `${baseUrl}/users/profile`;
+  const userNameId = sessionStorage.getItem("username");
+  console.log(userNameId);
+  const profileUrl = `${baseUrl}/users/${userNameId}/profile`;
 
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState({});
@@ -57,7 +59,7 @@ function ProfilePage() {
   const clickUpload = () => {
     const token = sessionStorage.getItem("token");
     if (token) {
-      navigate("/users/:userName/upload");
+      navigate(`/users/${userNameId}/upload`);
     } else {
       navigate("/users/login");
     }
@@ -67,7 +69,7 @@ function ProfilePage() {
     <h1>Loading...</h1>
   ) : (
     <div>
-      <h1>Welcome {profile.userName}!</h1>
+      <h1>Welcome {profile.username}!</h1>
       <div>
         <h2>Your Sites:</h2>
         {/* {sites?.map((site) => (

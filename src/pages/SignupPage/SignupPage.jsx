@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function SignupPage() {
   const baseUrl = import.meta.env.VITE_API_URL;
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +15,7 @@ function SignupPage() {
 
   const [formError, setFormError] = useState(false);
   const isSignupValid = async () => {
-    if (!userName || !name || !email || !password || confirmedPassword) {
+    if (!username || !name || !email || !password || confirmedPassword) {
       setFormError(true);
       return false;
     }
@@ -29,7 +29,7 @@ function SignupPage() {
     }
     try {
       const response = await axios.get(`${baseUrl}/users/check-username`, {
-        params: { userName },
+        params: { username },
       });
       if (response.data.exists) {
         setFormError(true);
@@ -49,7 +49,7 @@ function SignupPage() {
     if (signupValid) {
       try {
         const response = await axios.post(`${baseUrl}/users/signup`, {
-          userName,
+          username,
           name,
           email,
           password,
@@ -76,11 +76,11 @@ function SignupPage() {
             id="userName"
             name="userName"
             placeholder="Username"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
             className={`signup-Page__content ${
-              !formError && !userName ? "" : "signup-Page__content--inactive"
+              !formError && !username ? "" : "signup-Page__content--inactive"
             }`}
           />
         </div>

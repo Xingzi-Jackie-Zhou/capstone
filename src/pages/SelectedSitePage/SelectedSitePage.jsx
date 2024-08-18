@@ -15,9 +15,6 @@ function SelectedSitePage() {
   const siteNameInUse = siteNameFromSitePage || siteNameFromRiverPage;
 
   const baseApiUrl = import.meta.env.VITE_API_URL;
-  //   const [dischargeList, setDischargeList] = useState([]);
-  //   const [allDataList, setAllDataList] = useState([]);
-  // const [datePeriod, setDatePeriod] = useState([]);
 
   const [minDateString, setMinDateString] = useState("");
   const [maxDateString, setMaxDateString] = useState("");
@@ -26,6 +23,8 @@ function SelectedSitePage() {
   const [endDate, setEndDate] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
   const [formError, setFormError] = useState(false);
+  const [dateError, setDateError] = useState(false);
+
   const navigate = useNavigate();
   async function fetchDischargeList() {
     try {
@@ -34,14 +33,9 @@ function SelectedSitePage() {
       );
 
       const resultsDischarge = response.data;
-      //   setDischargeList(resultsDischarge);
-      //   console.log(resultsDischarge);
 
       const allDate = [...new Set(resultsDischarge.map((site) => site.date))];
-      //   setDatePeriod(allDate);
-      //   console.log(allDate);
 
-      // Convert date strings to Date objects and find min and max dates
       const validDates = allDate
         .map((date) => new Date(date))
         .filter((date) => !isNaN(date.getTime()));
@@ -50,16 +44,9 @@ function SelectedSitePage() {
         const minDate = new Date(Math.min(...validDates));
         const maxDate = new Date(Math.max(...validDates));
 
-        // Format dates to ISO string or any other desired format
         setMinDateString(minDate.toISOString().split("T")[0]);
         setMaxDateString(maxDate.toISOString().split("T")[0]);
       }
-
-      //   const responseAll = await axios.get(
-      //     `${baseApiUrl}/sites/${idInUse}/allData`
-      //   );
-      //   const resultsAll = responseAll.data;
-      //   setAllDataList(resultsAll);
     } catch (error) {
       console.error("Getting data error:", error);
     }
@@ -71,16 +58,38 @@ function SelectedSitePage() {
 
   console.log(`Date Range: ${minDateString} to ${maxDateString}`);
 
+  const isDateValid = (dateStr) => {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    return regex.test(dateStr) && !isNaN(new Date(dateStr).getTime());
+  };
+
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const minDate = new Date(minDateString);
+  const maxDate = new Date(maxDateString);
+  console.log("startDate", start, end, "guild Start", maxDate, minDate);
   const isFormValid = () => {
     if (!startDate || !endDate || !selectedOption) {
       setFormError(true);
+      setDateError(true);
       return false;
-    } else {
-      setFormError(false);
-      return true;
     }
-  };
+    if (!isDateValid(startDate) || !isDateValid(endDate)) {
+      setFormError(true);
+      setDateError(true);
+      return false;
+    }
+    if (start < minDate || end > maxDate || start > end) {
+      setDateError(true);
+      setFormError(true);
 
+      return false;
+    }
+    setFormError(false);
+    setDateError(false);
+    return true;
+  };
+  console.log("formError", formError, "dateError", dateError);
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formValid = isFormValid();
@@ -131,17 +140,33 @@ function SelectedSitePage() {
     }
   };
   const handleCancel = () => {
-    navigate("/");
+    navigate(siteNameFromRiverPage ? "/rivers" : "/sites");
   };
 
   return (
     <section className="hydrology">
-      <h2>
-        Gauge site id: {idInUse} and name: {siteNameInUse}
+      <h2 className="hydrology__conclusion">
+        Gauge site id: {idInUse} and name:{" "}
+        <span className="hydrology__style">{siteNameInUse}</span>
       </h2>
-      <p>
-        Please type in the date within range {minDateString} to {maxDateString}
-        in the format of YYYY-MM-DD.
+      <p className="hydrology__description">
+        Please type in the date within range{" "}
+        <span
+          className={`hydrology__bold ${
+            formError && dateError ? "hydrology__bold--red" : ""
+          }`}
+        >
+          {minDateString} to {maxDateString}{" "}
+        </span>
+        in the format of{" "}
+        <span
+          className={`hydrology__bold ${
+            formError && dateError ? "hydrology__bold--red" : ""
+          }`}
+        >
+          YYYY-MM-DD
+        </span>
+        .
       </p>
       <form className="hydrology__form" onSubmit={handleSubmit}>
         <div className="hydrology__startDate-contanier">
@@ -158,9 +183,9 @@ function SelectedSitePage() {
             }}
             value={startDate}
             className={`hydrology__startDate-add ${
-              !formError && !startDate
-                ? ""
-                : "hydrology__startDate-add--inactive"
+              formError && !startDate
+                ? "hydrology__startDate-add--inactive"
+                : ""
             }`}
           ></input>
         </div>
@@ -178,19 +203,35 @@ function SelectedSitePage() {
             }}
             value={endDate}
             className={`hydrology__endDate-add ${
-              !formError && !endDate ? "" : "hydrology__endDate-add--inactive"
+              formError && !endDate ? "hydrology__endDate-add--inactive" : ""
             }`}
           ></input>
+          <div
+            className={`hydrology__form-warning ${
+              formError && dateError ? "hydrology__form-warning--display" : ""
+            }`}
+          >
+            <p className="hydrology__form-message">
+              * Please check the date range and its format. *
+            </p>
+          </div>
+          <div
+            className={`hydrology__form-warning ${
+              formError && (!endDate || !startDate)
+                ? "hydrology__form-warning--display"
+                : ""
+            }`}
+          >
+            <p className="hydrology__form-message">
+              * This field is required *
+            </p>
+          </div>
         </div>
 
-        <div
-          className={`hydrology__results-selection ${
-            !formError && !selectedOption
-              ? ""
-              : "hydrology__results-selection--inactive"
-          }`}
-        >
-          <h2>Select one group of data you want to see:</h2>
+        <div className="hydrology__results-selection">
+          <h2 className="hydrology__chart-selection-label">
+            Select one group of data you want to see:
+          </h2>
           <div className="hydrology__results">
             <label>
               <input
@@ -200,7 +241,9 @@ function SelectedSitePage() {
                 onChange={() => setSelectedOption("check flow rate")}
                 className="hydrology__results-options"
               />
-              <span>Check flow rate only</span>
+              <span className="hydrology__option-content">
+                Check flow rate only
+              </span>
             </label>
           </div>
           <div className="hydrology__results">
@@ -212,14 +255,25 @@ function SelectedSitePage() {
                 onChange={() => setSelectedOption("check all data")}
                 className="hydrology__results-options"
               />
-              <span>Check all data</span>
+              <span className="hydrology__option-content">Check all data</span>
             </label>
+          </div>
+          <div
+            className={`hydrology__form-warning ${
+              formError && !selectedOption
+                ? "hydrology__form-warning--display"
+                : ""
+            }`}
+          >
+            <p className="hydrology__form-message">
+              * This field is required *
+            </p>
           </div>
         </div>
 
-        <div className="site-page__button-container">
-          <button className="site-page__button">Confirm</button>
-          <button className="site-page__cancel-button" onClick={handleCancel}>
+        <div className="hydrology__button-container">
+          <button className="hydrology__button">Confirm</button>
+          <button className="hydrology__cancel-button" onClick={handleCancel}>
             Cancel
           </button>
         </div>

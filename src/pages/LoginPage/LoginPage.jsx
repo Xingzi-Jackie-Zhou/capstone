@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -12,12 +12,12 @@ const LoginPage = () => {
     event.preventDefault();
     try {
       const response = await axios.post(`${baseUrl}/users/login`, {
-        userName,
+        username,
         password,
       });
-      sessionStorage.setItem("userName", userName);
+      sessionStorage.setItem("username", username);
       sessionStorage.setItem("token", response.data.token);
-      navigate("/users/profile");
+      navigate(`/users/${username}/profile`);
     } catch (error) {
       alert("Error username or password.");
       console.error("Error logging in:", error);
@@ -32,8 +32,8 @@ const LoginPage = () => {
           className="login-Page__content"
           type="text"
           placeholder="Username"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
         <input

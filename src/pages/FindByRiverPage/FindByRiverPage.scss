@@ -12,9 +12,32 @@
   @include desktop {
     padding: 2.5rem 5rem;
   }
-
-  &__river-add--inactive {
-    border: red 0.125rem solid;
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 100%;
+    box-sizing: border-box;
+    @include desktop {
+      max-width: 48rem;
+    }
+  }
+  &__label {
+    @include p-style;
+    font-weight: bold;
+  }
+  &__river-add {
+    margin-top: 0.25rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.625rem;
+    border-radius: 0.25rem;
+    border: 0.125rem solid #cccccc;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    &--inactive {
+      border: red 0.125rem solid;
+    }
   }
 
   &__form-warning {
@@ -22,23 +45,40 @@
     &--display {
       display: block;
       color: red;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
     }
+  }
+  &__form-message {
+    margin: 0;
   }
   &__button-container {
     padding: 0.75rem 0;
     @include tablet {
       display: flex;
-      flex-direction: column;
+      //flex-direction: column;
       justify-content: left;
       padding-bottom: 1.25rem;
+      gap: 1rem;
     }
     @include desktop {
       // width: 60%;
+      max-width: 48rem;
       padding-bottom: 2rem;
     }
   }
-  &__cancel-button,
+
   &__button {
+    padding: 0.25rem;
+    margin-bottom: 0.75rem;
+    max-height: 2.5rem;
+    @include tablet {
+      width: 30%;
+    }
+  }
+  &__cancel-button {
+    background-color: white;
+    border: 1px solid $light-grey;
     padding: 0.25rem;
     margin-bottom: 0.75rem;
     max-height: 2.5rem;

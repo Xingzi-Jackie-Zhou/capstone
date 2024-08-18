@@ -12,6 +12,8 @@ const UploadPage = () => {
   const [siteName, setSiteName] = useState("");
   const [river, setRiver] = useState("");
   const [city, setCity] = useState("");
+  const [stationId, setStationId] = useState("");
+  const [climateId, setClimateId] = useState("");
 
   const handleFileChange = (e) => {
     const { name, files } = e.target;
@@ -30,10 +32,12 @@ const UploadPage = () => {
       const formData = new FormData();
       formData.append("discharge", dischargeFile);
       formData.append("weather", weatherFile);
-      formData.append("site_name", siteName);
-      formData.append("river", river);
+      formData.append("siteName", siteName);
+      formData.append("stationId", stationId);
+      formData.append("riverName", river);
       formData.append("city", city);
-      const userNameId = sessionStorage.getItem("userName");
+      formData.append("climateId", climateId);
+      const userNameId = sessionStorage.getItem("username");
 
       await axios.post(`${baseUrl}/users/${userNameId}/upload`, formData, {
         headers: {
@@ -42,7 +46,7 @@ const UploadPage = () => {
         },
       });
 
-      navigate("/users/profile");
+      navigate(`/users/${userNameId}/profile`);
     } catch (error) {
       console.error("Error uploading files:", error);
     }
@@ -82,7 +86,7 @@ const UploadPage = () => {
         </div>
         <div className="upload-Page__content-site">
           <label className="upload-Page__site-label" htmlFor="site">
-            Step 3: site name
+            Step 3: site name and site id
           </label>
           <input
             className="upload-Page__content"
@@ -92,6 +96,16 @@ const UploadPage = () => {
             placeholder="Site Name"
             value={siteName}
             onChange={(e) => setSiteName(e.target.value)}
+            required
+          />
+          <input
+            className="upload-Page__content"
+            type="text"
+            id="site"
+            name="site"
+            placeholder="Station ID"
+            value={stationId}
+            onChange={(e) => setStationId(e.target.value)}
             required
           />
         </div>
@@ -112,20 +126,31 @@ const UploadPage = () => {
           />
         </div>
         <div className="upload-Page__content-site">
-          <label className="upload-Page__discharge-label" htmlFor="cityId">
-            Step 5: city Id (city Id is the climate_id in weather.csv)
+          <label className="upload-Page__discharge-label" htmlFor="city">
+            Step 5: city name and Id (city Id is the climate_id in weather.csv)
           </label>
           <input
             className="upload-Page__content"
             type="text"
-            id="cityId"
-            name="cityId"
-            placeholder="City"
+            id="city"
+            name="city"
+            placeholder="City name"
             value={city}
             onChange={(e) => setCity(e.target.value)}
             required
           />
+          <input
+            className="upload-Page__content"
+            type="text"
+            id="city"
+            name="city"
+            placeholder="City Id"
+            value={climateId}
+            onChange={(e) => setClimateId(e.target.value)}
+            required
+          />
         </div>
+
         <div className="upload-Page__content-site">
           <p>
             Last step: Click upload button to upload a site to your account.
