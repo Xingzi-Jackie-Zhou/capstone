@@ -8,6 +8,9 @@
   &__container {
     display: flex;
     flex-direction: column;
+    @include tablet {
+      align-items: start;
+    }
     @include desktop {
       justify-content: center;
       align-items: center;
@@ -57,11 +60,14 @@
     padding-bottom: 0.75rem;
     @include tablet {
       display: flex;
-      justify-content: space-between;
+      justify-content: left;
+      gap: 1.5rem;
       padding-bottom: 1.25rem;
+      width: 27.25rem;
     }
     @include desktop {
       width: 60%;
+      justify-content: center;
       padding-bottom: 2rem;
       align-items: left;
       //  justify-content: left;
@@ -72,7 +78,7 @@
     margin-bottom: 0.75rem;
     max-height: 2.5rem;
     @include tablet {
-      width: 30%;
+      width: 60%;
     }
     @include desktop {
       width: 30%;
@@ -83,17 +89,40 @@
     margin-bottom: 0.75rem;
     max-height: 2.5rem;
     @include tablet {
+      width: 60%;
+    }
+    @include desktop {
       width: 30%;
     }
   }
   &__return-link {
     margin-bottom: 0.75rem;
     max-height: 2.5rem;
+    text-decoration: none;
     @include tablet {
-      width: 30%;
+      display: flex;
+      justify-content: left;
+      align-items: start;
+    }
+    @include desktop {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
+
   &__return-button {
+    background-color: white;
+    border: 1px solid $light-grey;
     padding: 0.25rem;
+    margin-bottom: 0.75rem;
+    max-height: 2.5rem;
+    cursor: pointer;
+    @include tablet {
+      width: 27.25rem;
+    }
+    @include desktop {
+      width: 26.5rem;
+    }
   }
 }

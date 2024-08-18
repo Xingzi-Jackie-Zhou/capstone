@@ -250,10 +250,11 @@ const AllData = ({ dataList, startDate, endDate, idInUse, siteNameInUse }) => {
   };
 
   return (
-    <div className="result-page__container">
+    <div className="result-page__container-all">
       <div className="result-page__chart-container">
         <p className="result-page__notice">
-          No chart avaliable in mobile view, please switch to tabelt or laptop.{" "}
+          * No chart avaliable in mobile view, please switch to tablet or
+          laptop. *{" "}
         </p>
         <div className="result-page__chart">
           <Line data={chartData} options={options} />
@@ -344,19 +345,25 @@ const AllData = ({ dataList, startDate, endDate, idInUse, siteNameInUse }) => {
           </div>
         </div>
       </div>
-      <div className="result-page__button-container">
-        <button className="result-page__download-chart" onClick={downloadChart}>
+      <div className="result-page__button-container-all">
+        <button
+          className="result-page__download-chart-all"
+          onClick={downloadChart}
+        >
           Download Chart
         </button>
-        <button className="result-page__download-data" onClick={downloadData}>
+        <button
+          className="result-page__download-data-all"
+          onClick={downloadData}
+        >
           Download data
         </button>
-        <Link className="result-page__return-link" to={`/sites/${idInUse}`}>
-          <button className="result-page__return-button">
-            Return to previous page
-          </button>
-        </Link>
       </div>
+      <Link className="result-page__return-link-all" to={`/sites/${idInUse}`}>
+        <button className="result-page__return-button-all">
+          Return to previous page
+        </button>
+      </Link>
     </div>
   );
 };

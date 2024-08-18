@@ -179,7 +179,8 @@ const FlowRates = ({
     <div className="result-page__container">
       <div className="result-page__chart-container">
         <p className="result-page__notice">
-          No chart avaliable in mobile view, please switch to tabelt or laptop.{" "}
+          * No chart avaliable in mobile view, please switch to tablet or
+          laptop. *{" "}
         </p>
         <div className="result-page__chart">
           <Line data={chartData} options={options} />
@@ -213,12 +214,12 @@ const FlowRates = ({
         <button className="result-page__download-data" onClick={downloadData}>
           Download data
         </button>
-        <Link className="result-page__return-link" to={`/sites/${idInUse}`}>
-          <button className="result-page__return-button">
-            Return to previous page
-          </button>
-        </Link>
       </div>
+      <Link className="result-page__return-link" to={`/sites/${idInUse}`}>
+        <button className="result-page__return-button">
+          Return to previous page
+        </button>
+      </Link>
     </div>
   );
   // return <></>;
