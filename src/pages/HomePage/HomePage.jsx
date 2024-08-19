@@ -22,11 +22,13 @@ function HomePage() {
   return (
     <div className="directory">
       <div className="directory__hero-section">
-        <p className="directory__theme">
-          Effortlessly search and visualize river flow rates for clear,
-          actionable insights.
-        </p>
-        <p className="directory__author">Wrote by ChatGPT</p>
+        <div className="directory__theme-and-author">
+          <p className="directory__theme">
+            Effortlessly search and visualize river flow rates for clear,
+            actionable insights.
+          </p>
+          <p className="directory__author">Wrote by ChatGPT</p>
+        </div>
       </div>
       <div className="directory__functions">
         <div className="directory__find">

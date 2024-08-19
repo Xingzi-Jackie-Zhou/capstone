@@ -44,7 +44,9 @@ const FlowRates = ({
   const getStatistics = () => {
     if (dataList.length === 0) return { max: 0, min: 0, avg: 0 };
 
-    const discharges = dataList.map((item) => parseFloat(item.discharge));
+    const discharges = dataList
+      .map((item) => parseFloat(item.discharge))
+      .filter((value) => !isNaN(value));
     const max = Math.max(...discharges);
     const min = Math.min(...discharges);
     const avg = (
@@ -59,7 +61,7 @@ const FlowRates = ({
   const downloadChart = () => {
     const chartElement = document.querySelector(
       ".result-page__chart-container"
-    ); // Ensure your chart is inside this container
+    );
     html2canvas(chartElement).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4");
@@ -70,14 +72,14 @@ const FlowRates = ({
 
   //Data and options for the chart
   const chartData = {
-    labels: dataList?.map((item) => FormatDate(item.date)), // X-axis labels
+    labels: dataList?.map((item) => FormatDate(item.date)),
     datasets: [
       {
-        label: "Discharge Rate", // Label for the dataset
-        data: dataList?.map((item) => item.discharge), // Y-axis data
-        borderColor: "rgba(75,192,192,1)", // Line color
-        backgroundColor: "rgba(75,192,192,0.2)", // Fill color
-        fill: true, // Fill the area under the line
+        label: "Discharge Rate",
+        data: dataList?.map((item) => item.discharge),
+        borderColor: "rgba(75,192,192,1)",
+        backgroundColor: "rgba(75,192,192,0.2)",
+        fill: true,
       },
     ],
   };
@@ -167,7 +169,7 @@ const FlowRates = ({
     const fileName = `download_${idInUse}_data`;
     const exportType = exportFromJSON.types.csv;
     console.log("DataList:", dataList);
-    //   console.log("dataListArray", dataListArray);
+
     try {
       exportFromJSON({ data: dataList, fileName, exportType });
     } catch (error) {
@@ -222,7 +224,6 @@ const FlowRates = ({
       </Link>
     </div>
   );
-  // return <></>;
 };
 
 export default FlowRates;

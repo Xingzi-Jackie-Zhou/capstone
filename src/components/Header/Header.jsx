@@ -18,15 +18,20 @@ function Header() {
           <h1 className="header__logo">HydroMap</h1>
         </Link>
       </div>
-      <div className="header__login-contanier">
-        <Link to="users/login" className="header__login-link">
+      <div className="header__menu-contanier">
+        <Link to="/" className="header__menu-link">
+          <h3 className="header__menu">Main menu</h3>{" "}
+        </Link>
+        <Link to="/users/login" className="header__login-link">
           <h3 className="header__login">
             {!sessionStorage.getItem("username") ? (
               "Login"
             ) : (
-              <div>
+              <div className="header__login-contanier">
                 {sessionStorage.getItem("username")}
-                <button onClick={handleLogout}>Logout</button>
+                <button className="header__button" onClick={handleLogout}>
+                  ( Logout )
+                </button>
               </div>
             )}
           </h3>

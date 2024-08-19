@@ -64,11 +64,11 @@ function SignupPage() {
   };
 
   return (
-    <div className="signup-Page">
-      <h2 className="signup-Page__header">Sign Up</h2>
-      <form className="signup-Page__form" onSubmit={handleSignup}>
-        <div className="signup-Page__input-container">
-          <label className="signup-Page__content-label" htmlFor="userName">
+    <div className="signup-page">
+      <h2 className="signup-page__header">Sign Up</h2>
+      <form className="signup-page__form" onSubmit={handleSignup}>
+        <div className="signup-page__input-container">
+          <label className="signup-page__content-label" htmlFor="userName">
             Username :
           </label>
           <input
@@ -78,14 +78,14 @@ function SignupPage() {
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
-            className={`signup-Page__content ${
-              !formError && !username ? "" : "signup-Page__content--inactive"
+            // required
+            className={`signup-page__content ${
+              formError && !username ? "signup-page__content--inactive" : ""
             }`}
           />
         </div>
-        <div className="signup-Page__input-container">
-          <label className="signup-Page__content-label" htmlFor="name">
+        <div className="signup-page__input-container">
+          <label className="signup-page__content-label" htmlFor="name">
             Name :
           </label>
           <input
@@ -95,14 +95,14 @@ function SignupPage() {
             placeholder="Enter your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            required
-            className={`signup-Page__content ${
-              !formError && !name ? "" : "signup-Page__content--inactive"
+            // required
+            className={`signup-page__content ${
+              formError && !name ? "signup-page__content--inactive" : ""
             }`}
           />
         </div>
-        <div className="signup-Page__input-container">
-          <label className="signup-Page__content-label" htmlFor="email">
+        <div className="signup-page__input-container">
+          <label className="signup-page__content-label" htmlFor="email">
             Email :
           </label>
           <input
@@ -112,16 +112,16 @@ function SignupPage() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
-            className={`signup-Page__content ${
-              !formError && (!email || !email.includes("@"))
-                ? ""
-                : "signup-Page__content--inactive"
+            // required
+            className={`signup-page__content ${
+              formError && (!email || !email.includes("@"))
+                ? "signup-page__content--inactive"
+                : ""
             }`}
           />
         </div>
-        <div className="signup-Page__input-container">
-          <label className="signup-Page__content-label" htmlFor="password">
+        <div className="signup-page__input-container">
+          <label className="signup-page__content-label" htmlFor="password">
             Password :
           </label>
           <input
@@ -131,15 +131,15 @@ function SignupPage() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
-            className={`signup-Page__content ${
-              !formError && !password ? "" : "signup-Page__content--inactive"
+            // required
+            className={`signup-page__content ${
+              formError && !password ? "signup-page__content--inactive" : ""
             }`}
           />
         </div>
-        <div className="signup-Page__input-container">
+        <div className="signup-page__input-container">
           <label
-            className="signup-Page__content-label"
+            className="signup-page__content-label"
             htmlFor="confirmedPassword"
           >
             Confirmed Password:
@@ -151,16 +151,26 @@ function SignupPage() {
             placeholder="Confirmed Password"
             value={confirmedPassword}
             onChange={(e) => setConfirmedPassword(e.target.value)}
-            required
-            className={`signup-Page__content ${
-              !formError && confirmedPassword !== password
-                ? ""
-                : "signup-Page__content--inactive"
+            // required
+            className={`signup-page__content ${
+              formError &&
+              (!confirmedPassword || confirmedPassword !== password)
+                ? "signup-page__content--inactive"
+                : ""
             }`}
           />
         </div>
-        <div className="signup-Page__button-container">
-          <button className="signup-Page__button">Sign Up</button>
+        <div
+          className={`signup-page__form-warning ${
+            formError ? "signup-page__form-warning--display" : ""
+          }`}
+        >
+          <p className="signup-page__form-message">
+            * Please check your input and ensure all fields are correct. *
+          </p>
+        </div>
+        <div className="signup-page__button-container">
+          <button className="signup-page__button">Sign Up</button>
         </div>
       </form>
     </div>

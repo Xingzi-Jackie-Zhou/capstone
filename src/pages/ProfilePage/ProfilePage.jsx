@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./ProfilePage.scss";
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -66,12 +67,12 @@ function ProfilePage() {
   };
 
   return isLoading ? (
-    <h1>Loading...</h1>
+    <h2 className="profile-page__title">Loading...</h2>
   ) : (
-    <div>
-      <h1>Welcome {profile.username}!</h1>
+    <div className="profile-page">
+      <h2 className="profile-page__title">Welcome {profile.username}!</h2>
       <div>
-        <h2>Your Sites:</h2>
+        <h3 className="profile-page__subtitle">The site you uploaded:</h3>
         {/* {sites?.map((site) => (
           <button
             key={site.id}
@@ -81,8 +82,8 @@ function ProfilePage() {
           </button>
         ))} */}
       </div>
-      <div className="directory__button-container">
-        <button className="directory__upload-site" onClick={clickUpload}>
+      <div className="profile-page__button-container">
+        <button className="profile-page__button" onClick={clickUpload}>
           Upload a site
         </button>
       </div>

@@ -54,28 +54,36 @@ const AllData = ({ dataList, startDate, endDate, idInUse, siteNameInUse }) => {
         avgPrep: 0,
       };
 
-    const discharges = dataList.map((item) => parseFloat(item.discharge));
+    const discharges = dataList
+      .map((item) => parseFloat(item.discharge))
+      .filter((value) => !isNaN(value));
     const maxDischarge = Math.max(...discharges);
     const minDischarge = Math.min(...discharges);
     const avgDischarge = (
       discharges.reduce((acc, val) => acc + val, 0) / discharges.length
     ).toFixed(2);
 
-    const level = dataList.map((item) => parseFloat(item.water_level));
+    const level = dataList
+      .map((item) => parseFloat(item.water_level))
+      .filter((value) => !isNaN(value));
     const maxLevel = Math.max(...level);
     const minLevel = Math.min(...level);
     const avgLevel = (
       level.reduce((acc, val) => acc + val, 0) / level.length
     ).toFixed(2);
 
-    const temp = dataList.map((item) => parseFloat(item.ave_temperature));
+    const temp = dataList
+      .map((item) => parseFloat(item.ave_temperature))
+      .filter((value) => !isNaN(value));
     const maxTemp = Math.max(...temp);
     const minTemp = Math.min(...temp);
     const avgTemp = (
       temp.reduce((acc, val) => acc + val, 0) / temp.length
     ).toFixed(2);
 
-    const prep = dataList.map((item) => parseFloat(item.total_preciptation));
+    const prep = dataList
+      .map((item) => parseFloat(item.total_preciptation))
+      .filter((value) => !isNaN(value));
     const maxPrep = Math.max(...prep);
     const minPrep = Math.min(...prep);
     const avgPrep = (
