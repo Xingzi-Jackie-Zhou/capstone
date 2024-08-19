@@ -8,12 +8,30 @@ function SelectedRiverPage() {
   const baseApiUrl = import.meta.env.VITE_API_URL;
   const [siteList, setSiteList] = useState([]);
 
+  const userNameId = sessionStorage.getItem("username");
   async function fetchSitesList() {
     try {
-      const response = await axios.get(`${baseApiUrl}/rivers/${riverName}`);
-      const results = response.data;
-      setSiteList(results);
-      console.log(results);
+      const token = sessionStorage.getItem("token");
+      if (userNameId) {
+        const userResponse = await axios.get(
+          `${baseApiUrl}/users/${userNameId}/rivers/${riverName}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const userResults = userResponse.data;
+        setSiteList(userResults);
+        console.log("combined results List", userResults);
+      } else {
+        const defaultResponse = await axios.get(
+          `${baseApiUrl}/rivers/${riverName}`
+        );
+        const defaultResults = defaultResponse.data;
+        setSiteList(defaultResults);
+        console.log(defaultResults);
+      }
     } catch (error) {
       console.error("Getting site list error:", error);
     }

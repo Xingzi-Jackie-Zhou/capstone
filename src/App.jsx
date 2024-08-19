@@ -27,11 +27,13 @@ function App() {
           <Route path="/users/:userNameId/upload" element={<UploadPage />} />
 
           <Route path="/sites" element={<FindBySitePage />} />
+          <Route path="/users/:userNameId/sites" element={<FindBySitePage />} />
+
           <Route path="/sites/:siteId" element={<SelectedSitePage />} />
-          {/* <Route
-            path="users/:userNameId/sites/:siteId"
+          <Route
+            path="/users/:userNameId/sites/:siteId"
             element={<SelectedSitePage />}
-          /> */}
+          />
           <Route
             path="/sites/:siteId/flowRates/selectedDate"
             element={<ResultPage />}
@@ -42,12 +44,12 @@ function App() {
           />
           <Route path="/rivers" element={<FindByRiverPage />} />
           <Route
-            path="users/:userNameId/rivers"
+            path="/users/:userNameId/rivers"
             element={<FindByRiverPage />}
           />
           <Route path="/rivers/:riverName" element={<SelectedRiverPage />} />
           <Route
-            path="users/:userNameId/rivers/:riverName"
+            path="/users/:userNameId/rivers/:riverName"
             element={<SelectedRiverPage />}
           />
           <Route path="/prediction" element={<PredictionPage />} />
