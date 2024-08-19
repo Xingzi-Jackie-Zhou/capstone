@@ -55,7 +55,11 @@ function SelectedRiverPage() {
           <li className="river-site__site-details" key={site.id}>
             <Link
               className="river-site__site-link"
-              to={`/sites/${site.site_id}`}
+              to={
+                userNameId
+                  ? `/users/${userNameId}/sites/${site.site_id}`
+                  : `/sites/${site.site_id}`
+              }
               state={{ site_id: site.site_id, site_name: site.site_name }}
             >
               <span className="river-site__style">
@@ -66,10 +70,16 @@ function SelectedRiverPage() {
           </li>
         ))}
       </ul>
-      <Link className="river-site__river-link" to={`/rivers`}>
+      <Link
+        className="river-site__river-link"
+        to={userNameId ? `/users/${userNameId}/rivers` : `/rivers`}
+      >
         <p>Return to previous page</p>
       </Link>
-      <Link className="river-site__river-link" to={`/sites`}>
+      <Link
+        className="river-site__river-link"
+        to={userNameId ? `/users/${userNameId}/sites` : `/sites`}
+      >
         <button className="river-site__button">Find by site</button>
       </Link>
     </section>

@@ -34,24 +34,37 @@ function App() {
             path="/users/:userNameId/sites/:siteId"
             element={<SelectedSitePage />}
           />
+
           <Route
             path="/sites/:siteId/flowRates/selectedDate"
             element={<ResultPage />}
           />
           <Route
+            path="/users/:userNameId/sites/:siteId/flowRates/selectedDate"
+            element={<ResultPage />}
+          />
+
+          <Route
             path="/sites/:siteId/allData/selectedDate"
             element={<ResultPage />}
           />
+          <Route
+            path="/users/:userNameId/sites/:siteId/allData/selectedDate"
+            element={<ResultPage />}
+          />
+
           <Route path="/rivers" element={<FindByRiverPage />} />
           <Route
             path="/users/:userNameId/rivers"
             element={<FindByRiverPage />}
           />
+
           <Route path="/rivers/:riverName" element={<SelectedRiverPage />} />
           <Route
             path="/users/:userNameId/rivers/:riverName"
             element={<SelectedRiverPage />}
           />
+
           <Route path="/prediction" element={<PredictionPage />} />
         </Routes>
       </BrowserRouter>

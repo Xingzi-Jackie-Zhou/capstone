@@ -217,7 +217,11 @@ const FlowRates = ({
           Download data
         </button>
       </div>
-      <Link className="result-page__return-link" to={`/sites/${idInUse}`}>
+      <Link
+        className="result-page__return-link"
+        to={`/sites/${idInUse}`}
+        state={{ returnName: siteNameInUse }}
+      >
         <button className="result-page__return-button">
           Return to previous page
         </button>

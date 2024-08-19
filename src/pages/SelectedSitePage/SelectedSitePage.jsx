@@ -10,9 +10,11 @@ function SelectedSitePage() {
   const siteNameFromSitePage = state?.site_name; //take from find a site page
   const siteIdFromRiverPage = state?.site_id;
   const siteNameFromRiverPage = state?.site_name; //take from find by river page
+  const returnName = state?.returnName;
 
   const idInUse = siteId || siteIdFromRiverPage;
-  const siteNameInUse = siteNameFromSitePage || siteNameFromRiverPage;
+  const siteNameInUse =
+    siteNameFromSitePage || siteNameFromRiverPage || returnName;
 
   const baseApiUrl = import.meta.env.VITE_API_URL;
 
@@ -26,26 +28,58 @@ function SelectedSitePage() {
   const [dateError, setDateError] = useState(false);
 
   const navigate = useNavigate();
+  const userNameId = sessionStorage.getItem("username");
+  const token = sessionStorage.getItem("token");
   async function fetchDischargeList() {
     try {
-      const response = await axios.get(
-        `${baseApiUrl}/sites/${idInUse}/flowRates`
-      );
+      if (userNameId) {
+        const userResponse = await axios.get(
+          `${baseApiUrl}/users/${userNameId}/sites/${idInUse}/flowRates`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const userResultsDischarge = userResponse.data;
 
-      const resultsDischarge = response.data;
+        const allDate = [
+          ...new Set(userResultsDischarge.map((site) => site.date)),
+        ];
 
-      const allDate = [...new Set(resultsDischarge.map((site) => site.date))];
+        const validDates = allDate
+          .map((date) => new Date(date))
+          .filter((date) => !isNaN(date.getTime()));
 
-      const validDates = allDate
-        .map((date) => new Date(date))
-        .filter((date) => !isNaN(date.getTime()));
+        if (validDates.length > 0) {
+          const minDate = new Date(Math.min(...validDates));
+          const maxDate = new Date(Math.max(...validDates));
 
-      if (validDates.length > 0) {
-        const minDate = new Date(Math.min(...validDates));
-        const maxDate = new Date(Math.max(...validDates));
+          setMinDateString(minDate.toISOString().split("T")[0]);
+          setMaxDateString(maxDate.toISOString().split("T")[0]);
+        }
+      } else {
+        const response = await axios.get(
+          `${baseApiUrl}/sites/${idInUse}/flowRates`
+        );
 
-        setMinDateString(minDate.toISOString().split("T")[0]);
-        setMaxDateString(maxDate.toISOString().split("T")[0]);
+        const defaultResultsDischarge = response.data;
+
+        const allDate = [
+          ...new Set(defaultResultsDischarge.map((site) => site.date)),
+        ];
+
+        const validDates = allDate
+          .map((date) => new Date(date))
+          .filter((date) => !isNaN(date.getTime()));
+
+        if (validDates.length > 0) {
+          const minDate = new Date(Math.min(...validDates));
+          const maxDate = new Date(Math.max(...validDates));
+
+          setMinDateString(minDate.toISOString().split("T")[0]);
+          setMaxDateString(maxDate.toISOString().split("T")[0]);
+        }
       }
     } catch (error) {
       console.error("Getting data error:", error);
@@ -101,37 +135,85 @@ function SelectedSitePage() {
         };
         if (selectedOption === "check flow rate") {
           try {
-            await axios.post(
-              `${baseApiUrl}/sites/${idInUse}/flowRates`,
-              selectedRange
-            );
-            navigate(`/sites/${idInUse}/flowRates/selectedDate`, {
-              state: {
-                startDate: startDate,
-                endDate: endDate,
-                selectedOption: selectedOption,
-                idInUse: idInUse,
-                siteNameInUse: siteNameInUse,
-              },
-            });
+            if (userNameId) {
+              await axios.post(
+                `${baseApiUrl}/users/${userNameId}/sites/${idInUse}/flowRates`,
+                selectedRange,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              );
+              navigate(
+                `/users/${userNameId}/sites/${idInUse}/flowRates/selectedDate`,
+                {
+                  state: {
+                    startDate: startDate,
+                    endDate: endDate,
+                    selectedOption: selectedOption,
+                    idInUse: idInUse,
+                    siteNameInUse: siteNameInUse,
+                  },
+                }
+              );
+            } else {
+              await axios.post(
+                `${baseApiUrl}/sites/${idInUse}/flowRates`,
+                selectedRange
+              );
+              navigate(`/sites/${idInUse}/flowRates/selectedDate`, {
+                state: {
+                  startDate: startDate,
+                  endDate: endDate,
+                  selectedOption: selectedOption,
+                  idInUse: idInUse,
+                  siteNameInUse: siteNameInUse,
+                },
+              });
+            }
           } catch (error) {
             console.log("Error:", error);
           }
         } else {
           try {
-            await axios.post(
-              `${baseApiUrl}/sites/${idInUse}/allData`,
-              selectedRange
-            );
-            navigate(`/sites/${idInUse}/allData/selectedDate`, {
-              state: {
-                startDate: startDate,
-                endDate: endDate,
-                selectedOption: selectedOption,
-                idInUse: idInUse,
-                siteNameInUse: siteNameInUse,
-              },
-            });
+            if (userNameId) {
+              await axios.post(
+                `${baseApiUrl}/users/${userNameId}/sites/${idInUse}/allData`,
+                selectedRange,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              );
+              navigate(
+                `/users/${userNameId}/sites/${idInUse}/allData/selectedDate`,
+                {
+                  state: {
+                    startDate: startDate,
+                    endDate: endDate,
+                    selectedOption: selectedOption,
+                    idInUse: idInUse,
+                    siteNameInUse: siteNameInUse,
+                  },
+                }
+              );
+            } else {
+              await axios.post(
+                `${baseApiUrl}/sites/${idInUse}/allData`,
+                selectedRange
+              );
+              navigate(`/sites/${idInUse}/allData/selectedDate`, {
+                state: {
+                  startDate: startDate,
+                  endDate: endDate,
+                  selectedOption: selectedOption,
+                  idInUse: idInUse,
+                  siteNameInUse: siteNameInUse,
+                },
+              });
+            }
           } catch (error) {
             console.log("Error:", error);
           }
@@ -140,7 +222,15 @@ function SelectedSitePage() {
     }
   };
   const handleCancel = () => {
-    navigate(siteNameFromRiverPage ? "/rivers" : "/sites");
+    if (userNameId) {
+      navigate(
+        siteNameFromRiverPage
+          ? `/users/${userNameId}/rivers`
+          : `/users/${userNameId}/sites`
+      );
+    } else {
+      navigate(siteNameFromRiverPage ? "/rivers" : "/sites");
+    }
   };
 
   return (

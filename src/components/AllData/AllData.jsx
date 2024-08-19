@@ -367,7 +367,11 @@ const AllData = ({ dataList, startDate, endDate, idInUse, siteNameInUse }) => {
           Download data
         </button>
       </div>
-      <Link className="result-page__return-link-all" to={`/sites/${idInUse}`}>
+      <Link
+        className="result-page__return-link-all"
+        to={`/sites/${idInUse}`}
+        state={{ returnName: siteNameInUse }}
+      >
         <button className="result-page__return-button-all">
           Return to previous page
         </button>
