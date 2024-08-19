@@ -25,6 +25,7 @@ function App() {
           <Route path="/users/login" element={<LoginPage />} />
           <Route path="/users/:userNameId/profile" element={<ProfilePage />} />
           <Route path="/users/:userNameId/upload" element={<UploadPage />} />
+
           <Route path="/sites" element={<FindBySitePage />} />
           <Route path="/sites/:siteId" element={<SelectedSitePage />} />
           {/* <Route
@@ -40,7 +41,15 @@ function App() {
             element={<ResultPage />}
           />
           <Route path="/rivers" element={<FindByRiverPage />} />
+          <Route
+            path="users/:userNameId/rivers"
+            element={<FindByRiverPage />}
+          />
           <Route path="/rivers/:riverName" element={<SelectedRiverPage />} />
+          <Route
+            path="users/:userNameId/rivers/:riverName"
+            element={<SelectedRiverPage />}
+          />
           <Route path="/prediction" element={<PredictionPage />} />
         </Routes>
       </BrowserRouter>

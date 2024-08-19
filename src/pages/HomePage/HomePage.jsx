@@ -10,8 +10,9 @@ function HomePage() {
   };
   const clickUpload = () => {
     const token = sessionStorage.getItem("token");
+    const userNameId = sessionStorage.getItem("username");
     if (token) {
-      navigate("/users/upload");
+      navigate(`/users/${userNameId}/upload`);
     } else {
       navigate("/users/login");
     }

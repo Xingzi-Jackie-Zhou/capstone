@@ -6,9 +6,15 @@
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   padding: 1rem;
   background-color: $blue-background;
+  &--align {
+    align-items: start;
+    @include tablet {
+      align-items: center;
+    }
+  }
   @include tablet {
     padding: 1rem 2.5rem;
   }
@@ -16,68 +22,74 @@
     padding: 1rem 5rem;
   }
 
+  &__logo-link,
+  &__menu-link {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+  }
+  &__logo-contanier {
+    display: flex;
+    align-items: center;
+  }
   &__logo {
     color: $blue-text;
+    @include h2-style;
+  }
+  &__navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    @include tablet {
+      flex-direction: row;
+      justify-content: right;
+      gap: 1rem;
+    }
   }
 
-  &__login-contanier {
+  &__login-contanier,
+  &__logged-contanier {
     display: flex;
     gap: 0.125rem;
     align-items: baseline;
     @include h3-style;
+    display: flex;
+    flex-direction: column;
     @include tablet {
-    }
-  }
-  &__menu-contanier {
-    @include tablet {
-      display: flex;
+      flex-direction: row;
       gap: 1rem;
-      align-items: baseline;
+    }
+    &--disappear {
+      display: none;
     }
   }
-
-  &__logo-link,
-  &__menu-link {
-    text-decoration: none;
-  }
-
-  &__login {
-    margin: 0;
-    color: $blue-text;
-    @include h3-style;
-    border-bottom: 0.125rem solid $blue-text;
-    text-align: center;
-    &:hover {
-      color: white;
-      text-decoration: underline;
-      border-bottom: none;
-    }
-  }
-  &__menu {
-    margin: 0;
-    padding-bottom: 0.0625rem;
-    color: $blue-text;
-    @include h3-style;
-    border-bottom: 0.125rem solid $blue-text;
-    text-align: center;
-    &:hover {
-      color: white;
-      text-decoration: underline;
-      border-bottom: none;
-    }
-  }
-
-  &__login-link {
-    text-decoration: none;
-  }
-
-  &__button {
+  &__menu,
+  &__user-login,
+  &__user-profile,
+  &__logout-button {
     background-color: $blue-background;
-    text-align: left;
-    padding-left: 0;
-    @include h3-style;
+    color: $blue-text;
+    margin: 0;
+    padding: 0;
+    @include label-style;
+    text-align: right;
+    border-radius: 0.5rem;
     &:hover {
       color: white;
+      background-color: $blue-background;
+      border-bottom: 0.125rem solid white;
+    }
+    &:active {
+      background-color: $blue-background;
+      border-bottom: 0.125rem solid white;
+    }
+    &--active {
+      color: white;
+      font-weight: bold;
+    }
+    @include tablet {
+      @include p-style;
+      font-weight: bold;
     }
   }
 }

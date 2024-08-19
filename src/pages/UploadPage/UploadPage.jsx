@@ -7,6 +7,7 @@ const UploadPage = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const userNameId = sessionStorage.getItem("username");
+  // const userId = sessionStorage.getItem("id");
   const [dischargeFile, setDischargeFile] = useState(null);
   const [weatherFile, setWeatherFile] = useState(null);
   const [siteName, setSiteName] = useState("");
@@ -60,7 +61,7 @@ const UploadPage = () => {
         formData.append("climateId", climateId);
         const userNameId = sessionStorage.getItem("username");
 
-        await axios.post(`${baseUrl}/users/${userNameId}/upload`, formData, {
+        await axios.post(`${baseUrl}/users/${userNameId}}/upload`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,

@@ -7,7 +7,8 @@ function ProfilePage() {
   const navigate = useNavigate();
   const baseUrl = import.meta.env.VITE_API_URL;
   const userNameId = sessionStorage.getItem("username");
-  console.log(userNameId);
+  //const userId = sessionStorage.getItem("id");
+  //console.log(userId);
   const profileUrl = `${baseUrl}/users/${userNameId}/profile`;
 
   const [isLoading, setIsLoading] = useState(true);
