@@ -1,0 +1,114 @@
+@use "../../styles/partials/font" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+@use "../../styles/partials/global" as *;
+
+.upload-page {
+  padding: 1rem;
+  @include tablet {
+    padding: 2.5rem;
+  }
+  @include desktop {
+    padding: 2.5rem 5rem;
+    max-width: 48rem;
+  }
+
+  &__header {
+    @include h2-style;
+    color: $blue-text;
+    margin-bottom: 1rem;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 100%;
+    box-sizing: border-box;
+    @include desktop {
+      max-width: 48rem;
+    }
+  }
+
+  &__content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__content-label {
+    @include p-style;
+    font-weight: bold;
+  }
+  &__step-text,
+  &__upload-description {
+    @include h3-style;
+    font-weight: bold;
+    color: $blue-text;
+  }
+
+  &__content {
+    margin-top: 0.25rem;
+    padding: 0.625rem;
+    border-radius: 0.25rem;
+    border: 0.125rem solid #cccccc;
+    width: 100%;
+    &--add {
+      margin-bottom: 1rem;
+    }
+    &--inactive {
+      border: 0.125rem solid red;
+    }
+  }
+
+  &__form-warning {
+    display: none;
+    &--display {
+      display: block;
+      color: red;
+      font-size: 0.875rem;
+    }
+  }
+
+  &__form-message {
+    margin: 0;
+  }
+  &__upload-description {
+    margin-bottom: 0;
+  }
+  &__button-container {
+    padding: 0.75rem 0;
+    @include tablet {
+      display: flex;
+      //flex-direction: column;
+      justify-content: left;
+      padding-bottom: 1.25rem;
+    }
+    @include desktop {
+      // width: 60%;
+      max-width: 48rem;
+      padding-bottom: 2rem;
+    }
+  }
+  &__button {
+    padding: 0.25rem;
+    margin-bottom: 0.75rem;
+    max-height: 2.5rem;
+    @include tablet {
+      width: 30%;
+      margin-right: 1rem;
+    }
+  }
+  &__cancel-button {
+    background-color: white;
+    border: 1px solid $light-grey;
+    padding: 0.25rem;
+    margin-bottom: 0.75rem;
+    max-height: 2.5rem;
+    cursor: pointer;
+    @include tablet {
+      width: 30%;
+    }
+  }
+}
