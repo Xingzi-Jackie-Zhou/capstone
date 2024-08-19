@@ -15,7 +15,7 @@ function SignupPage() {
 
   const [formError, setFormError] = useState(false);
   const isSignupValid = async () => {
-    if (!username || !name || !email || !password || confirmedPassword) {
+    if (!username || !name || !email || !password || !confirmedPassword) {
       setFormError(true);
       return false;
     }
