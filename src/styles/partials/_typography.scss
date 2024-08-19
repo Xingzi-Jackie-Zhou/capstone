@@ -1,0 +1,71 @@
+@use "./font" as *;
+@use "./mixins" as *;
+
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  @include tablet {
+    font-size: 3.75rem;
+    line-height: 4.25rem;
+  }
+  @include desktop {
+    font-size: 3.75rem;
+    line-height: 4.25rem;
+  }
+}
+
+h2 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  @include tablet {
+    font-size: 2.25rem;
+    line-height: 2.75rem;
+  }
+  @include desktop {
+    font-size: 2.25rem;
+    line-height: 2.75rem;
+  }
+}
+
+h3 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  @include tablet {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 1.437rem;
+    line-height: 2rem;
+  }
+  @include desktop {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+  }
+}
+
+p {
+  font-family: "Avenir", sans-serif;
+  font-weight: 400;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  @include tablet {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+  }
+}
+
+label {
+  font-family: "Avenir", sans-serif;
+  font-weight: 600;
+  font-size: 0.625rem;
+  line-height: 1.25rem;
+  @include tablet {
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+  }
+}

@@ -1,0 +1,108 @@
+@use "../../styles/partials/font" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+@use "../../styles/partials/global" as *;
+
+button {
+  @include button-form;
+  cursor: pointer;
+}
+.directory {
+  margin: 0;
+  &__hero-section {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background-size: cover;
+    padding: 1rem;
+    filter: brightness(90%);
+    background-image: url("../../assest/images/hydrology4.jpg");
+    position: relative;
+    @include tablet {
+      padding: 2.5rem;
+    }
+  }
+  &__theme-and-author {
+    position: absolute;
+    @include tablet {
+      top: 9rem;
+      left: 4rem;
+    }
+    @include desktop {
+      padding: 5rem;
+      top: 10rem;
+      left: 4.5rem;
+    }
+  }
+  &__theme {
+    color: white;
+    @include tablet {
+      @include h3-style;
+    }
+    @include desktop {
+      @include h2-style;
+    }
+  }
+  &__author {
+    display: flex;
+    color: white;
+    @include label-style;
+    @include tablet {
+      @include p-style;
+    }
+    @include desktop {
+      @include h3-style;
+    }
+  }
+  &__functions {
+    padding: 1rem;
+    @include tablet {
+      display: flex;
+      padding: 2.5rem;
+      align-items: center;
+    }
+    @include desktop {
+      padding: 2.5rem 5rem;
+    }
+  }
+  &__button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__find {
+    @include tablet {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+    }
+  }
+
+  &__find-site,
+  &__find-river,
+  &__upload-site {
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    @include tablet {
+      width: 80%;
+    }
+  }
+
+  &__prediction {
+    @include tablet {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &__predict-site {
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    @include tablet {
+      width: 80%;
+      height: 10rem;
+      padding: 1rem 2rem;
+    }
+  }
+}

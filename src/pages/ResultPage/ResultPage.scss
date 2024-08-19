@@ -1,0 +1,18 @@
+@use "../../styles/partials/font" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+@use "../../styles/partials/global" as *;
+
+.result-page {
+  padding: 1rem;
+  // max-width: 48rem;
+  @include tablet {
+    padding: 1rem 2.5rem;
+  }
+  @include desktop {
+    padding: 1rem 5rem;
+    justify-content: center;
+    align-items: center;
+  }
+}
