@@ -1,5 +1,6 @@
 import "./FlowRates.scss";
 import FormatDate from "../../utility/FormatDate/FormatDate.jsx";
+import exportFromJSON from "export-from-json";
 import { Link } from "react-router-dom";
 import { Line } from "react-chartjs-2";
 import {
@@ -43,7 +44,9 @@ const FlowRates = ({
   const getStatistics = () => {
     if (dataList.length === 0) return { max: 0, min: 0, avg: 0 };
 
-    const discharges = dataList.map((item) => parseFloat(item.discharge));
+    const discharges = dataList
+      .map((item) => parseFloat(item.discharge))
+      .filter((value) => !isNaN(value));
     const max = Math.max(...discharges);
     const min = Math.min(...discharges);
     const avg = (
@@ -58,25 +61,25 @@ const FlowRates = ({
   const downloadChart = () => {
     const chartElement = document.querySelector(
       ".result-page__chart-container"
-    ); // Ensure your chart is inside this container
+    );
     html2canvas(chartElement).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("l", "mm", "a4");
-      pdf.addImage(imgData, "PNG", 10, 10, 277, 210); //margin, margin, imgWidth, imgHeight
+      const pdf = new jsPDF("p", "mm", "a4");
+      pdf.addImage(imgData, "PNG", 10, 10, 190, 130); //margin, margin, imgWidth, imgHeight
       pdf.save(`chart_site${idInUse}.pdf`);
     });
   };
 
   //Data and options for the chart
   const chartData = {
-    labels: dataList?.map((item) => FormatDate(item.discharge_date)), // X-axis labels
+    labels: dataList?.map((item) => FormatDate(item.date)),
     datasets: [
       {
-        label: "Discharge Rate", // Label for the dataset
-        data: dataList?.map((item) => item.discharge), // Y-axis data
-        borderColor: "rgba(75,192,192,1)", // Line color
-        backgroundColor: "rgba(75,192,192,0.2)", // Fill color
-        fill: true, // Fill the area under the line
+        label: "Discharge Rate",
+        data: dataList?.map((item) => item.discharge),
+        borderColor: "rgba(75,192,192,1)",
+        backgroundColor: "rgba(75,192,192,0.2)",
+        fill: true,
       },
     ],
   };
@@ -86,9 +89,11 @@ const FlowRates = ({
     plugins: {
       legend: {
         display: true,
+        color: "#000000",
       },
       title: {
         display: true,
+        color: "#000000",
         text: "Discharge Rate Over Time ",
       },
     },
@@ -97,39 +102,128 @@ const FlowRates = ({
         title: {
           display: true,
           text: "Date",
+          color: "#000000",
+          font: {
+            size: 16,
+            weight: "bold",
+          },
+        },
+        grid: {
+          display: true,
+          drawBorder: true,
+          color: "#e0e0e0",
+          lineWidth: 1,
+          drawOnChartArea: true,
+          drawTicks: true,
+          tickLength: 4,
+        },
+        ticks: {
+          display: true,
+          color: "#000000",
+          autoSkip: true,
+          maxRotation: 90,
+          minRotation: 0,
+          font: {
+            size: 12,
+          },
         },
       },
       y: {
+        beginAtZero: true,
         title: {
           display: true,
-          text: "Discharge Rate (m³ s⁻¹)",
+          text: "Discharge (m³ s⁻¹)",
+          color: "#000000",
+          font: {
+            size: 16,
+            weight: "bold",
+          },
         },
-        beginAtZero: true,
+        grid: {
+          display: true,
+          drawBorder: true,
+          color: "#e0e0e0",
+          lineWidth: 1,
+          drawOnChartArea: true,
+          drawTicks: true,
+          tickLength: 4,
+        },
+        ticks: {
+          display: true,
+          color: "#000000",
+          font: {
+            size: 12,
+          },
+
+          autoSkip: true,
+          maxRotation: 90,
+          minRotation: 0,
+        },
       },
     },
   };
+  console.log(typeof dataList);
+
+  //download dataList as a csv file
+  const downloadData = () => {
+    const fileName = `download_${idInUse}_data`;
+    const exportType = exportFromJSON.types.csv;
+    console.log("DataList:", dataList);
+
+    try {
+      exportFromJSON({ data: dataList, fileName, exportType });
+    } catch (error) {
+      console.error("Export download failed:", error);
+    }
+  };
 
   return (
-    <>
+    <div className="result-page__container">
       <div className="result-page__chart-container">
-        <Line data={chartData} options={options} />
-        <p>
+        <p className="result-page__notice">
+          * No chart avaliable in mobile view, please switch to tablet or
+          laptop. *{" "}
+        </p>
+        <div className="result-page__chart">
+          <Line data={chartData} options={options} />
+        </div>
+        <p className="result-page__chart-caption">
+          <span className="result-page__bold result-page__bold--subheader">
+            Figure caption :{" "}
+          </span>{" "}
           Discharge rate over time period from {startDate} to for {endDate} site
-          {idInUse},{siteNameInUse}.
+          ID {idInUse}, {siteNameInUse}.
         </p>
         <div className="result-page__statistics">
-          <p>Max Discharge: {max} m³ s⁻¹</p>
-          <p>Min Discharge: {min} m³ s⁻¹</p>
-          <p>Average Discharge: {avg} m³ s⁻¹</p>
+          <p>
+            <span className="result-page__bold">Max Discharge: </span>
+            {max} m³ s⁻¹
+          </p>
+          <p>
+            <span className="result-page__bold">Min Discharge: </span>
+            {min} m³ s⁻¹
+          </p>
+          <p>
+            <span className="result-page__bold">Average Discharge: </span>
+            {avg} m³ s⁻¹
+          </p>
         </div>
-        <button onClick={downloadChart}>Download Chart</button>
+      </div>
+      <div className="result-page__button-container">
+        <button className="result-page__download-chart" onClick={downloadChart}>
+          Download Chart
+        </button>
+        <button className="result-page__download-data" onClick={downloadData}>
+          Download data
+        </button>
       </div>
       <Link className="result-page__return-link" to={`/sites/${idInUse}`}>
-        <p>Return to previous page</p>
+        <button className="result-page__return-button">
+          Return to previous page
+        </button>
       </Link>
-    </>
+    </div>
   );
-  // return <></>;
 };
 
 export default FlowRates;

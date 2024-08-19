@@ -8,30 +8,76 @@
   justify-content: space-between;
   align-items: baseline;
   padding: 1rem;
-  //   background-color: #2e66e5;
   background-color: $blue-background;
-  //   background-image: url("../../assest/images/Hydrology.jpg");
-  //   background-repeat: no-repeat;
-  //   object-fit: cover;
   @include tablet {
     padding: 1rem 2.5rem;
   }
   @include desktop {
     padding: 1rem 5rem;
   }
+
   &__logo {
     color: $blue-text;
   }
-  &__logo-link {
+
+  &__login-contanier {
+    display: flex;
+    gap: 0.125rem;
+    align-items: baseline;
+    @include h3-style;
+    @include tablet {
+    }
+  }
+  &__menu-contanier {
+    @include tablet {
+      display: flex;
+      gap: 1rem;
+      align-items: baseline;
+    }
+  }
+
+  &__logo-link,
+  &__menu-link {
     text-decoration: none;
   }
+
   &__login {
+    margin: 0;
     color: $blue-text;
+    @include h3-style;
+    border-bottom: 0.125rem solid $blue-text;
+    text-align: center;
+    &:hover {
+      color: white;
+      text-decoration: underline;
+      border-bottom: none;
+    }
+  }
+  &__menu {
+    margin: 0;
+    padding-bottom: 0.0625rem;
+    color: $blue-text;
+    @include h3-style;
+    border-bottom: 0.125rem solid $blue-text;
+    text-align: center;
+    &:hover {
+      color: white;
+      text-decoration: underline;
+      border-bottom: none;
+    }
+  }
+
+  &__login-link {
+    text-decoration: none;
+  }
+
+  &__button {
+    background-color: $blue-background;
+    text-align: left;
+    padding-left: 0;
+    @include h3-style;
     &:hover {
       color: white;
     }
-  }
-  &__login-link {
-    text-decoration: none;
   }
 }

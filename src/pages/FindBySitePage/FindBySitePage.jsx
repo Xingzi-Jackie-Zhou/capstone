@@ -80,14 +80,16 @@ function FindBySitePage() {
       }
     }
   };
-
+  const clickRiver = () => {
+    navigate("/rivers");
+  };
   const handleCancel = () => {
     navigate("/");
   };
 
   return (
     <div className="site-page">
-      <h2>Find discharge by selecting a gauge site:</h2>
+      <h3>Find discharge by selecting a gauge site:</h3>
       <form className="site-page__form" onSubmit={handleSubmit}>
         <div>
           <div>
@@ -119,7 +121,7 @@ function FindBySitePage() {
               ))}
             </select>
           </div>
-          <h2>OR</h2>
+          <h3>OR</h3>
           <div>
             <label className="site-page__label" htmlFor="selectSiteId">
               Gauge site id:
@@ -133,7 +135,7 @@ function FindBySitePage() {
                 !formError ? "" : "site-page__site-add--inactive"
               }`}
             >
-              <option value="" disabled>
+              <option className="site-page__option" value="" disabled>
                 Please select a gauge site
               </option>
               {siteIds?.map((siteId) => (
@@ -154,7 +156,7 @@ function FindBySitePage() {
           }`}
         >
           <p className="site-page__form-message">
-            Please select a gauge site by either site name or station id.
+            * Please select a gauge site by either site name or station id. *
           </p>
         </div>
 
@@ -165,6 +167,11 @@ function FindBySitePage() {
           </button>
         </div>
       </form>
+      <div className="site-page__button-container">
+        <button className="site-page__button" onClick={clickRiver}>
+          Find by river
+        </button>
+      </div>
     </div>
   );
 }

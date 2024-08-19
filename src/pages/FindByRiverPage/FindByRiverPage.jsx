@@ -43,14 +43,16 @@ function FindByRiverPage() {
       navigate(`/rivers/${selectRiver}`);
     }
   };
-
+  const clickSite = () => {
+    navigate("/sites");
+  };
   const handleCancel = () => {
     navigate("/");
   };
 
   return (
     <div className="river-page">
-      <h2>Find by select a river:</h2>
+      <h2>Find gauge site by select a river:</h2>
       <form className="river-page__form" onSubmit={handleSubmit}>
         <label className="river-page__label" htmlFor="river">
           River categories :
@@ -83,19 +85,21 @@ function FindByRiverPage() {
             formError ? "river-page__form-warning--display" : ""
           }`}
         >
-          <p className="river-page__form-message">This field is required</p>
+          <p className="river-page__form-message">* This field is required *</p>
         </div>
 
         <div className="river-page__button-container">
           <button className="river-page__button">confirm</button>
-          <button
-            className="river-page__cancel-button river-page__cancel-button--mobile"
-            onClick={handleCancel}
-          >
+          <button className="river-page__cancel-button" onClick={handleCancel}>
             cancel
           </button>
         </div>
       </form>
+      <div className="river-page__button-container">
+        <button className="river-page__button" onClick={clickSite}>
+          Find by site
+        </button>
+      </div>
     </div>
   );
 }
