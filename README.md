@@ -12,9 +12,8 @@ HydroMap is a website people can look into flow rate of river at specific site t
 
 environment monitor people and worker:
 
-    -check previous year flow rate, water level, air temperature and preciptation at specific guage site.
-    -create/upload their own guage file/graph and able to share to other people.
-    -predict flow rate for a specific site based on previous year, so that user can based on the prediction to decide if they are going to the site to collect data or not.
+    -check previous year flow rate, water level, air temperature and preciptation at specific guage site without setting up account.
+    -create/upload their own guage file/graph and able to share to other people (need to signup an account for use upload function).
 
 ### Features
 
@@ -23,16 +22,16 @@ environment monitor people and worker:
 - As a user, I want to able to find guage sites from a specific river so that I can choose one of the guage site to invest.
 - As a user, I want to able to predict when should I go sampling the site based on previous year flow rate data to minimize the time I go out for nothing.
 - As a logged in user, I want to able to create my own guaging site following instruction and able to share with my other workers.
-- As a logged in user, I want to be able to see all the site I checked.
+- As a logged in user, I want to be able to see all the sites I saved.
 
 ## Implementation
 
 ### Tech Stack
 
 - React
-- MySQL
+- MySQL2
 - Express
-  -Retool?(convert csv file to json file)
+- node
 
 - Client libraries:
 
@@ -40,20 +39,30 @@ environment monitor people and worker:
   - react-router
   - axios
     -JWT/Auth for storing users
+    -chart.js
+    -export-from-json
+    -html2canvas
+    -jspdf
 
 - Server libraries:
   - knex
   - express
-  - Auth? for storing users
+  - Auth for storing users
+  - csvtojson
+  - multer
+  - path
 
 ### APIs
 
-NO external API. The data I will using will from https://rivers.alberta.ca/ or https://wateroffice.ec.gc.ca/search/historical_e.html and https://acis.alberta.ca/township-data-viewer.jsp or https://acis.alberta.ca/weather-data-viewer.jsp
+NO external API. The data used in the web are from https://wateroffice.ec.gc.ca/search/historical_e.html and https://climate.weather.gc.ca/historical_data/search_historic_data_e.html
 
 ### Sitemap
 
--home page
--register
+#### home page
+
+![Image](https://github.com/Xingzi-Jackie-Zhou/capstone/blob/main/src/assest/images/proposal-image/homePage.png)
+####signup
+![Image](https://github.com/Xingzi-Jackie-Zhou/capstone/blob/main/src/assest/images/proposal-image/homePage.png)
 -login
 -find a river
 -find a site
@@ -193,5 +202,6 @@ Does your project include any login or user profile functionality? If so, descri
 
 ## Nice-to-haves
 
-Expand to more guage sites and rivers
-Making prediction better based on more variables
+-predict flow rate for a specific site based on previous year, so that user can based on the prediction to decide if they are going to the site to collect data or not.
+-Expand to more guage sites and rivers
+-make user able to edit and delete the sites they upload.
