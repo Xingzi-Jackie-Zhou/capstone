@@ -31,10 +31,8 @@
   &__chart-caption {
     margin-top: 0;
     font-size: 0.75rem;
-    // @include desktop {
-    //   width: 60%;
-    // }
   }
+
   &__bold {
     font-weight: bold;
     font-size: 0.675rem;
@@ -51,6 +49,7 @@
       padding-bottom: 2rem;
     }
   }
+
   &__statistics > p {
     font-size: 0.675rem;
     margin: 0;
@@ -70,9 +69,9 @@
       justify-content: center;
       padding-bottom: 2rem;
       align-items: left;
-      //  justify-content: left;
     }
   }
+
   &__download-chart {
     padding: 0.25rem;
     margin-bottom: 0.75rem;
@@ -84,6 +83,7 @@
       width: 30%;
     }
   }
+
   &__download-data {
     padding: 0.25rem;
     margin-bottom: 0.75rem;
@@ -95,6 +95,7 @@
       width: 30%;
     }
   }
+
   &__return-link {
     margin-bottom: 0.75rem;
     max-height: 2.5rem;

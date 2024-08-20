@@ -58,6 +58,11 @@
       color: black;
     }
   }
+  &__river-link > p {
+    &:hover {
+      font-weight: bold;
+    }
+  }
   &__button {
     padding: 0.25rem;
     margin-bottom: 0.75rem;

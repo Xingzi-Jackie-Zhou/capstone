@@ -11,7 +11,7 @@ import {
   Title,
   Tooltip,
   Legend,
-  PointElement, // Register PointElement if using points
+  PointElement,
 } from "chart.js";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -24,7 +24,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  PointElement // Register PointElement if you use points
+  PointElement
 );
 
 const FlowRates = ({
@@ -34,12 +34,6 @@ const FlowRates = ({
   idInUse,
   siteNameInUse,
 }) => {
-  console.log(dataList);
-  console.log(startDate);
-  console.log(endDate);
-  console.log(idInUse);
-  console.log(siteNameInUse);
-
   // Calculate statistics
   const getStatistics = () => {
     if (dataList.length === 0) return { max: 0, min: 0, avg: 0 };
@@ -162,13 +156,11 @@ const FlowRates = ({
       },
     },
   };
-  console.log(typeof dataList);
 
   //download dataList as a csv file
   const downloadData = () => {
     const fileName = `download_${idInUse}_data`;
     const exportType = exportFromJSON.types.csv;
-    console.log("DataList:", dataList);
 
     try {
       exportFromJSON({ data: dataList, fileName, exportType });
@@ -217,7 +209,11 @@ const FlowRates = ({
           Download data
         </button>
       </div>
-      <Link className="result-page__return-link" to={`/sites/${idInUse}`}>
+      <Link
+        className="result-page__return-link"
+        to={`/sites/${idInUse}`}
+        state={{ returnName: siteNameInUse }}
+      >
         <button className="result-page__return-button">
           Return to previous page
         </button>

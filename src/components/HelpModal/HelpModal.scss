@@ -1,0 +1,88 @@
+@use "../../styles/partials/font" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+@use "../../styles/partials/global" as *;
+
+.help-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  &__content {
+    position: relative;
+    background: white;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    width: 80%;
+    max-width: 48rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  &__close {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    background: none;
+    border: none;
+    @include h3-style;
+    font-weight: bold;
+    max-width: 2rem;
+  }
+  &__title {
+    margin-top: 0;
+    color: $blue-text;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  &__text {
+    margin-top: 1.5rem;
+  }
+
+  &__text-step {
+    margin-bottom: 1rem;
+  }
+
+  &__text-main {
+    color: $blue-text;
+    line-height: 1.5;
+  }
+
+  &__text-bold {
+    font-weight: bold;
+  }
+
+  &__image-container {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  &__text-notes {
+    @include label-style;
+    color: $light-grey;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    margin: 0;
+  }
+  &__link {
+    color: red;
+    text-decoration: underline;
+  }
+}

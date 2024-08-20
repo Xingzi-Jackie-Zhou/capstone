@@ -15,7 +15,7 @@ function SignupPage() {
 
   const [formError, setFormError] = useState(false);
   const isSignupValid = async () => {
-    if (!username || !name || !email || !password || confirmedPassword) {
+    if (!username || !name || !email || !password || !confirmedPassword) {
       setFormError(true);
       return false;
     }
@@ -54,7 +54,7 @@ function SignupPage() {
           email,
           password,
         });
-        console.log(response.data);
+
         alert("Sign up sucessfully! Please login.");
         navigate("/users/login");
       } catch (error) {
@@ -78,7 +78,6 @@ function SignupPage() {
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            // required
             className={`signup-page__content ${
               formError && !username ? "signup-page__content--inactive" : ""
             }`}
@@ -95,7 +94,6 @@ function SignupPage() {
             placeholder="Enter your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            // required
             className={`signup-page__content ${
               formError && !name ? "signup-page__content--inactive" : ""
             }`}
@@ -112,7 +110,6 @@ function SignupPage() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            // required
             className={`signup-page__content ${
               formError && (!email || !email.includes("@"))
                 ? "signup-page__content--inactive"
@@ -131,7 +128,6 @@ function SignupPage() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            // required
             className={`signup-page__content ${
               formError && !password ? "signup-page__content--inactive" : ""
             }`}
@@ -151,7 +147,6 @@ function SignupPage() {
             placeholder="Confirmed Password"
             value={confirmedPassword}
             onChange={(e) => setConfirmedPassword(e.target.value)}
-            // required
             className={`signup-page__content ${
               formError &&
               (!confirmedPassword || confirmedPassword !== password)

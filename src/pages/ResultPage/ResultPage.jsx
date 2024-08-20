@@ -18,28 +18,49 @@ function ResultPage() {
   const baseApiUrl = import.meta.env.VITE_API_URL;
   const [dataList, setDataList] = useState([]);
 
-  console.log("selectOption", selectedOption);
+  const userNameId = sessionStorage.getItem("username");
   async function fetchDataList() {
+    const token = sessionStorage.getItem("token");
     try {
-      const url =
-        selectedOption === "check flow rate"
-          ? `${baseApiUrl}/sites/${siteId}/flowRates/selectedDate`
-          : `${baseApiUrl}/sites/${siteId}/allData/selectedDate`;
+      if (userNameId) {
+        const url =
+          selectedOption === "check flow rate"
+            ? `${baseApiUrl}/users/${userNameId}/sites/${siteId}/flowRates/selectedDate`
+            : `${baseApiUrl}/users/${userNameId}/sites/${siteId}/allData/selectedDate`;
 
-      // Fetch the data from the API
-      const response = await axios.get(url);
-      console.log(response);
-      // Filter data based on startDate and endDate
-      const start = new Date(startDate + "T00:00:00Z"); // start of the day in UTC
-      const end = new Date(endDate + "T23:59:59Z"); // end of the day in UTC
-      const selectedData = response.data.filter((item) => {
-        const itemDate = new Date(item.date || item.discharge_date);
-        console.log(itemDate);
-        return itemDate >= start && itemDate <= end;
-      });
-      // Update the state with the fetched data
-      setDataList(selectedData);
-      console.log(selectedData);
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const start = new Date(startDate + "T00:00:00Z");
+        const end = new Date(endDate + "T23:59:59Z");
+        const selectedData = response.data.filter((item) => {
+          const itemDate = new Date(item.date || item.discharge_date);
+
+          return itemDate >= start && itemDate <= end;
+        });
+
+        setDataList(selectedData);
+      } else {
+        const url =
+          selectedOption === "check flow rate"
+            ? `${baseApiUrl}/sites/${siteId}/flowRates/selectedDate`
+            : `${baseApiUrl}/sites/${siteId}/allData/selectedDate`;
+
+        const response = await axios.get(url);
+
+        const start = new Date(startDate + "T00:00:00Z");
+        const end = new Date(endDate + "T23:59:59Z");
+        const selectedData = response.data.filter((item) => {
+          const itemDate = new Date(item.date || item.discharge_date);
+
+          return itemDate >= start && itemDate <= end;
+        });
+
+        setDataList(selectedData);
+      }
     } catch (error) {
       console.error(
         "Error fetching data:",

@@ -22,15 +22,11 @@
   &__statistics-all {
     border-top: 0.125rem solid black;
     margin-bottom: 1rem;
-    // @include desktop {
-    //   width: 70%;
-    // }
   }
   &__statistics-title {
     display: none;
     @include tablet {
       display: flex;
-      //  justify-content: space-between;
       border-bottom: 0.125rem solid black;
     }
     & > p {
@@ -60,6 +56,7 @@
   &__content-all {
     display: flex;
   }
+
   &__row-title {
     display: none;
     @include tablet {
@@ -89,40 +86,30 @@
       width: 60%;
       padding-bottom: 2rem;
       align-items: left;
-      //  justify-content: left;
     }
   }
   &__download-chart-all {
     padding: 0.25rem;
     margin-bottom: 0.75rem;
     max-height: 2.5rem;
-    // @include tablet {
-    //   width: 60%;
-    // }
     @include desktop {
       width: 30%;
     }
   }
+
   &__download-data-all {
     padding: 0.25rem;
     margin-bottom: 0.75rem;
     max-height: 2.5rem;
-    // @include tablet {
-    //   width: 60%;
-    // }
     @include desktop {
       width: 30%;
     }
   }
+
   &__return-link-all {
     margin-bottom: 0.75rem;
     max-height: 2.5rem;
     text-decoration: none;
-    // @include tablet {
-    //   display: flex;
-    //   justify-content: left;
-    //   align-items: start;
-    // }
     @include tablet {
       display: flex;
       justify-content: center;
