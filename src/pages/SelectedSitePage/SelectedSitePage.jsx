@@ -7,6 +7,7 @@ function SelectedSitePage() {
   const { siteId } = useParams();
   const location = useLocation();
   const { state } = location;
+
   const siteNameFromSitePage = state?.site_name; //take from find a site page
   const siteIdFromRiverPage = state?.site_id;
   const siteNameFromRiverPage = state?.site_name; //take from find by river page
@@ -30,6 +31,7 @@ function SelectedSitePage() {
   const navigate = useNavigate();
   const userNameId = sessionStorage.getItem("username");
   const token = sessionStorage.getItem("token");
+
   async function fetchDischargeList() {
     try {
       if (userNameId) {
@@ -90,8 +92,6 @@ function SelectedSitePage() {
     fetchDischargeList();
   }, []);
 
-  console.log(`Date Range: ${minDateString} to ${maxDateString}`);
-
   const isDateValid = (dateStr) => {
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     return regex.test(dateStr) && !isNaN(new Date(dateStr).getTime());
@@ -101,7 +101,7 @@ function SelectedSitePage() {
   const end = new Date(endDate);
   const minDate = new Date(minDateString);
   const maxDate = new Date(maxDateString);
-  console.log("startDate", start, end, "guild Start", maxDate, minDate);
+
   const isFormValid = () => {
     if (!startDate || !endDate || !selectedOption) {
       setFormError(true);
@@ -123,7 +123,7 @@ function SelectedSitePage() {
     setDateError(false);
     return true;
   };
-  console.log("formError", formError, "dateError", dateError);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formValid = isFormValid();

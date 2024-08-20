@@ -30,10 +30,8 @@ const LoginPage = () => {
         });
         sessionStorage.setItem("username", username);
         sessionStorage.setItem("id", response.data.id);
-        //  sessionStorage.setItem("id", response.data.user.id);
         sessionStorage.setItem("token", response.data.token);
-        const userId = sessionStorage.getItem("id");
-        console.log(response.data.id, "and ", userId);
+
         navigate(`/users/${username}/profile`);
       } catch (error) {
         alert("Error username or password.");

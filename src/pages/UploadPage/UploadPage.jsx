@@ -8,7 +8,6 @@ const UploadPage = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const userNameId = sessionStorage.getItem("username");
-  // const userId = sessionStorage.getItem("id");
   const [dischargeFile, setDischargeFile] = useState(null);
   const [weatherFile, setWeatherFile] = useState(null);
   const [siteName, setSiteName] = useState("");
@@ -47,12 +46,15 @@ const UploadPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const uploadValid = isUploadValid();
+
     if (uploadValid) {
       const token = sessionStorage.getItem("token");
+
       if (!token) {
         console.error("No token found. Please log in.");
         return;
       }
+
       try {
         const formData = new FormData();
         formData.append("discharge", dischargeFile);
@@ -201,7 +203,7 @@ const UploadPage = () => {
           <div className="upload-page__step-and-help">
             <p className="upload-page__step-text">
               {" "}
-              Step 4: river name. (e.g., enther Bow for river BoW River).
+              Step 4: river name. (e.g., enter Bow for river Bow River).
             </p>
             <button
               className="upload-page__help"
@@ -230,7 +232,7 @@ const UploadPage = () => {
           <div className="upload-page__step-and-help">
             <p className="upload-page__step-text">
               {" "}
-              Step 5: city name and Id (city Id is the climate_id in
+              Step 5: city name and id (city id is the climate_id in
               weather.csv).
             </p>
             <button

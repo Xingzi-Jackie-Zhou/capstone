@@ -27,7 +27,8 @@
   }
   &__site-details {
     @include p-style;
-    padding: 0.75rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
     border-radius: 0.25rem;
     background-color: $white;
     box-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.5);
@@ -41,13 +42,11 @@
     padding: 0.75rem 0;
     @include tablet {
       display: flex;
-      //flex-direction: column;
       justify-content: left;
       padding-bottom: 1.25rem;
       gap: 1rem;
     }
     @include desktop {
-      // width: 60%;
       max-width: 48rem;
       padding-bottom: 2rem;
     }

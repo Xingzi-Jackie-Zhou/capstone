@@ -11,7 +11,7 @@ import {
   Title,
   Tooltip,
   Legend,
-  PointElement, // Register PointElement if using points
+  PointElement,
   Filler,
 } from "chart.js";
 import html2canvas from "html2canvas";
@@ -25,17 +25,11 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  PointElement, // Register PointElement if you use points
+  PointElement,
   Filler
 );
 
 const AllData = ({ dataList, startDate, endDate, idInUse, siteNameInUse }) => {
-  console.log(dataList);
-  console.log(startDate);
-  console.log(endDate);
-  console.log(idInUse);
-  console.log(siteNameInUse);
-
   // Calculate statistics
   const getStatistics = () => {
     if (dataList.length === 0)
@@ -125,7 +119,7 @@ const AllData = ({ dataList, startDate, endDate, idInUse, siteNameInUse }) => {
   const downloadChart = () => {
     const chartElement = document.querySelector(
       ".result-page__chart-container"
-    ); // Ensure your chart is inside this container
+    );
     html2canvas(chartElement).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4");
@@ -136,7 +130,7 @@ const AllData = ({ dataList, startDate, endDate, idInUse, siteNameInUse }) => {
 
   // Data and options for the chart
   const chartData = {
-    labels: dataList?.map((item) => FormatDate(item.discharge_date)), // X-axis labels
+    labels: dataList?.map((item) => FormatDate(item.discharge_date)),
     datasets: [
       {
         label: "Discharge Rate",
@@ -248,8 +242,7 @@ const AllData = ({ dataList, startDate, endDate, idInUse, siteNameInUse }) => {
   const downloadData = () => {
     const fileName = `download_${idInUse}_data`;
     const exportType = exportFromJSON.types.csv;
-    console.log("DataList:", dataList);
-    //   console.log("dataListArray", dataListArray);
+
     try {
       exportFromJSON({ data: dataList, fileName, exportType });
     } catch (error) {

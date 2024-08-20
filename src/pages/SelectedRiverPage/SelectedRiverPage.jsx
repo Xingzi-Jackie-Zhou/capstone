@@ -23,14 +23,12 @@ function SelectedRiverPage() {
         );
         const userResults = userResponse.data;
         setSiteList(userResults);
-        console.log("combined results List", userResults);
       } else {
         const defaultResponse = await axios.get(
           `${baseApiUrl}/rivers/${riverName}`
         );
         const defaultResults = defaultResponse.data;
         setSiteList(defaultResults);
-        console.log(defaultResults);
       }
     } catch (error) {
       console.error("Getting site list error:", error);

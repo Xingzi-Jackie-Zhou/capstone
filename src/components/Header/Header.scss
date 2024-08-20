@@ -28,14 +28,17 @@
     margin: 0;
     padding: 0;
   }
+
   &__logo-contanier {
     display: flex;
     align-items: center;
   }
+
   &__logo {
     color: $blue-text;
     @include h2-style;
   }
+
   &__navigation {
     display: flex;
     flex-direction: column;
@@ -63,6 +66,7 @@
       display: none;
     }
   }
+
   &__menu,
   &__user-login,
   &__user-profile,

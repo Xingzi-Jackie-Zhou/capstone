@@ -25,9 +25,7 @@ function ProfilePage() {
       });
       setIsLoading(false);
       setProfile(response.data);
-      console.log(response);
     } catch (error) {
-      //sessionStorage.removeItem("token");
       console.error(error);
     }
   };
@@ -54,14 +52,6 @@ function ProfilePage() {
     }
   }, [userNameId, profileUrl]);
 
-  // useEffect(() => {
-  //   fetchUserSite();
-  // }, [siteId]);
-
-  // const handleSiteClick = (siteId) => {
-  //   // Handle site button click (e.g., navigate to site details page)
-  // };
-
   const clickUpload = () => {
     const token = sessionStorage.getItem("token");
     if (token) {
@@ -70,6 +60,7 @@ function ProfilePage() {
       navigate("/users/login");
     }
   };
+
   const handleSiteClick = (id, name) => {
     if (userNameId) {
       navigate(`/users/${userNameId}/sites/${id}`, {
@@ -88,7 +79,13 @@ function ProfilePage() {
     <div className="profile-page">
       <h2 className="profile-page__title">Welcome {profile.username}!</h2>
       <div>
-        <h3 className="profile-page__subtitle">The site you uploaded:</h3>
+        {sites && sites.length > 0 ? (
+          <h3 className="profile-page__subtitle">The site you uploaded:</h3>
+        ) : (
+          <h3 className="profile-page__subtitle">
+            You currently have no personal site uploaded.
+          </h3>
+        )}
         <ul className="profile-page__site-list">
           {sites?.map((site) => (
             <li

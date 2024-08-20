@@ -60,6 +60,7 @@ function FindBySitePage() {
         const response = await axios.get(`${baseApiUrl}/sites`);
         const defaultResults = response.data;
         const nameIdMap = {};
+
         defaultResults.forEach((site) => {
           if (!nameIdMap[site.site_name]) {
             nameIdMap[site.site_name] = site.site_id;
@@ -115,6 +116,7 @@ function FindBySitePage() {
     const formValid = isFormValid();
     const idToNavigate = selectSite || siteIdNameMap[selectId];
     const siteToNavigate = selectId || siteNameIdMap[selectSite];
+
     if (formValid) {
       if (siteToNavigate && idToNavigate) {
         if (userNameId) {
@@ -129,6 +131,7 @@ function FindBySitePage() {
       }
     }
   };
+
   const clickRiver = () => {
     if (userNameId) {
       navigate(`/users/${userNameId}/rivers`);

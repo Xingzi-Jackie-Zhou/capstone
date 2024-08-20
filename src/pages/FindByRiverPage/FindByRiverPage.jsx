@@ -13,6 +13,7 @@ function FindByRiverPage() {
   async function fetchRiverList() {
     try {
       const token = sessionStorage.getItem("token");
+
       if (userNameId) {
         const userResponse = await axios.get(
           `${baseApiUrl}/users/${userNameId}/rivers`,
@@ -24,13 +25,12 @@ function FindByRiverPage() {
         );
         const userRivers = userResponse.data;
         const combinedRivers = userRivers;
-        console.log("combined river List", combinedRivers);
+
         const uniqueRiverNames = [
           ...new Set(combinedRivers?.map((item) => item.river)),
         ];
+
         setRiverNames(uniqueRiverNames);
-        console.log(uniqueRiverNames);
-        console.log(riverNames);
       } else {
         const response = await axios.get(`${baseApiUrl}/rivers`);
         const defaultRivers = response.data;
@@ -38,8 +38,6 @@ function FindByRiverPage() {
           ...new Set(defaultRivers.map((item) => item.river)),
         ];
         setRiverNames(uniqueRiverNames);
-        console.log(uniqueRiverNames);
-        console.log("default", riverNames);
       }
     } catch (error) {
       console.error(error);

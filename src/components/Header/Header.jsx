@@ -6,12 +6,11 @@ import { useState, useEffect } from "react";
 function Header() {
   console.log(sessionStorage.getItem("username"));
   const userNameId = sessionStorage.getItem("username");
-  //const userId = sessionStorage.getItem("id");
-  //console.log(userId);
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const location = useLocation();
   const [profileActive, setProfileActive] = useState(false);
+
   useEffect(() => {
     if (location.pathname.startsWith(`/users/${userNameId}/profile`)) {
       setProfileActive(true);
