@@ -15,6 +15,27 @@
   }
   &__title {
     color: $blue-text;
+    margin-bottom: 1rem;
+  }
+  &__subtitle {
+    margin-bottom: 0.5rem;
+  }
+  &__site-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+  }
+  &__site-details {
+    @include p-style;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    background-color: $white;
+    box-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    max-width: 80%;
+    &:hover {
+      background-color: $button-color;
+    }
   }
   &__button-container {
     padding: 0.75rem 0;

@@ -14,6 +14,7 @@ import ResultPage from "./pages/ResultPage/ResultPage.jsx";
 
 import PredictionPage from "./pages/PredictionPage/PredictionPage.jsx";
 import UploadPage from "./pages/UploadPage/UploadPage.jsx";
+// import HelpPage from "./components/HelpPage/HelpPage.jsx";
 function App() {
   return (
     <>
@@ -66,6 +67,8 @@ function App() {
           />
 
           <Route path="/prediction" element={<PredictionPage />} />
+
+          {/* <Route path="/help" element={<HelpPage />} /> */}
         </Routes>
       </BrowserRouter>
     </>
