@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import "./UploadPage.scss";
 import { useNavigate } from "react-router-dom";
+import HelpModal from "../../components/HelpModal/HelpModal";
 
 const UploadPage = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -16,6 +17,8 @@ const UploadPage = () => {
   const [climateId, setClimateId] = useState("");
 
   const [formError, setFormError] = useState(false);
+
+  const [isHelpVisible, setIsHelpVisible] = useState(false);
 
   const isUploadValid = async () => {
     if (
@@ -43,12 +46,15 @@ const UploadPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const uploadValid = isUploadValid();
+
     if (uploadValid) {
       const token = sessionStorage.getItem("token");
+
       if (!token) {
         console.error("No token found. Please log in.");
         return;
       }
+
       try {
         const formData = new FormData();
         formData.append("discharge", dischargeFile);
@@ -60,7 +66,7 @@ const UploadPage = () => {
         formData.append("climateId", climateId);
         const userNameId = sessionStorage.getItem("username");
 
-        await axios.post(`${baseUrl}/users/${userNameId}/upload`, formData, {
+        await axios.post(`${baseUrl}/users/${userNameId}}/upload`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
@@ -81,15 +87,33 @@ const UploadPage = () => {
       navigate("/users/login");
     }
   };
+
+  const openHelpModal = () => {
+    setIsHelpVisible(true);
+  };
+
+  const closeHelpModal = () => {
+    setIsHelpVisible(false);
+  };
+
   return (
     <div className="upload-page">
       <h2 className="upload-page__header">Upload Data</h2>
       <form className="upload-page__form" onSubmit={handleSubmit}>
         <div className="upload-page__content-container">
-          <p className="upload-page__step-text">
-            {" "}
-            Step 1: upload discharge.csv file here.
-          </p>
+          <div className="upload-page__step-and-help">
+            <p className="upload-page__step-text">
+              {" "}
+              Step 1: upload discharge.csv file here.
+            </p>
+            <button
+              className="upload-page__help"
+              type="button"
+              onClick={openHelpModal}
+            >
+              Help
+            </button>
+          </div>
           <label className="upload-page__content-label" htmlFor="discharge">
             Discharge file:
           </label>
@@ -107,9 +131,18 @@ const UploadPage = () => {
           />
         </div>
         <div className="upload-page__content-contanier">
-          <p className="upload-page__step-text">
-            Step 2: upload weather.csv file here.
-          </p>
+          <div className="upload-page__step-and-help">
+            <p className="upload-page__step-text">
+              Step 2: upload weather.csv file here.
+            </p>
+            <button
+              className="upload-page__help"
+              type="button"
+              onClick={openHelpModal}
+            >
+              Help
+            </button>
+          </div>
           <label className="upload-page__content-label" htmlFor="weather">
             Weather file:
           </label>
@@ -125,9 +158,18 @@ const UploadPage = () => {
           />
         </div>
         <div className="upload-page__content-contanier">
-          <p className="upload-page__step-text">
-            Step 3: enter the site name and site id.
-          </p>
+          <div className="upload-page__step-and-help">
+            <p className="upload-page__step-text">
+              Step 3: enter the site name and site id.
+            </p>
+            <button
+              className="upload-page__help"
+              type="button"
+              onClick={openHelpModal}
+            >
+              Help
+            </button>
+          </div>
           <label className="upload-page__content-label" htmlFor="site">
             Site name:
           </label>
@@ -158,10 +200,19 @@ const UploadPage = () => {
           />
         </div>
         <div className="upload-page__content--contanier">
-          <p className="upload-page__step-text">
-            {" "}
-            Step 4: river name. (e.g., enther Bow for river BoW River).
-          </p>
+          <div className="upload-page__step-and-help">
+            <p className="upload-page__step-text">
+              {" "}
+              Step 4: river name. (e.g., enter Bow for river Bow River).
+            </p>
+            <button
+              className="upload-page__help"
+              type="button"
+              onClick={openHelpModal}
+            >
+              Help
+            </button>
+          </div>
           <label className="upload-page__content-label" htmlFor="riverName">
             River name:
           </label>
@@ -178,10 +229,20 @@ const UploadPage = () => {
           />
         </div>
         <div className="upload-page__content--contanier">
-          <p className="upload-page__step-text">
-            {" "}
-            Step 5: city name and Id (city Id is the climate_id in weather.csv).
-          </p>
+          <div className="upload-page__step-and-help">
+            <p className="upload-page__step-text">
+              {" "}
+              Step 5: city name and id (city id is the climate_id in
+              weather.csv).
+            </p>
+            <button
+              className="upload-page__help"
+              type="button"
+              onClick={openHelpModal}
+            >
+              Help
+            </button>
+          </div>
           <label className="upload-page__content-label" htmlFor="city">
             City name:
           </label>
@@ -232,6 +293,7 @@ const UploadPage = () => {
           </button>
         </div>
       </form>
+      <HelpModal isVisible={isHelpVisible} onClose={closeHelpModal} />
     </div>
   );
 };

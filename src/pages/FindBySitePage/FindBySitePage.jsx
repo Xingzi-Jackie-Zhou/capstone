@@ -14,35 +14,79 @@ function FindBySitePage() {
   const [siteNameIdMap, setSiteNameIdMap] = useState({});
   const [siteIdNameMap, setSiteIdNameMap] = useState({});
 
+  const userNameId = sessionStorage.getItem("username");
+
   async function fetchSiteList() {
     try {
-      const response = await axios.get(`${baseApiUrl}/sites`);
-      const results = response.data;
+      const token = sessionStorage.getItem("token");
+      if (userNameId) {
+        const userResponse = await axios.get(
+          `${baseApiUrl}/users/${userNameId}/sites`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const userResults = userResponse.data;
 
-      const nameIdMap = {};
-      results.forEach((site) => {
-        if (!nameIdMap[site.site_name]) {
-          nameIdMap[site.site_name] = site.site_id;
-        }
-      });
+        const nameIdMap = {};
+        userResults.forEach((site) => {
+          if (!nameIdMap[site.site_name]) {
+            nameIdMap[site.site_name] = site.site_id;
+          }
+        });
 
-      const idNameMap = {};
-      results.forEach((site) => {
-        if (!idNameMap[site.site_id]) {
-          idNameMap[site.site_id] = site.site_name;
-        }
-      });
+        const idNameMap = {};
+        userResults.forEach((site) => {
+          if (!idNameMap[site.site_id]) {
+            idNameMap[site.site_id] = site.site_name;
+          }
+        });
 
-      setSiteNameIdMap(nameIdMap);
-      setSiteIdNameMap(idNameMap);
+        setSiteNameIdMap(nameIdMap);
+        setSiteIdNameMap(idNameMap);
 
-      const uniqueSiteNames = [
-        ...new Set(results.map((site) => site.site_name)),
-      ];
-      const uniqueSiteIds = [...new Set(results.map((site) => site.site_id))];
+        const uniqueSiteNames = [
+          ...new Set(userResults.map((site) => site.site_name)),
+        ];
+        const uniqueSiteIds = [
+          ...new Set(userResults.map((site) => site.site_id)),
+        ];
 
-      setSiteNames(uniqueSiteNames);
-      setSiteIds(uniqueSiteIds);
+        setSiteNames(uniqueSiteNames);
+        setSiteIds(uniqueSiteIds);
+      } else {
+        const response = await axios.get(`${baseApiUrl}/sites`);
+        const defaultResults = response.data;
+        const nameIdMap = {};
+
+        defaultResults.forEach((site) => {
+          if (!nameIdMap[site.site_name]) {
+            nameIdMap[site.site_name] = site.site_id;
+          }
+        });
+
+        const idNameMap = {};
+        defaultResults.forEach((site) => {
+          if (!idNameMap[site.site_id]) {
+            idNameMap[site.site_id] = site.site_name;
+          }
+        });
+
+        setSiteNameIdMap(nameIdMap);
+        setSiteIdNameMap(idNameMap);
+
+        const uniqueSiteNames = [
+          ...new Set(defaultResults.map((site) => site.site_name)),
+        ];
+        const uniqueSiteIds = [
+          ...new Set(defaultResults.map((site) => site.site_id)),
+        ];
+
+        setSiteNames(uniqueSiteNames);
+        setSiteIds(uniqueSiteIds);
+      }
     } catch (error) {
       console.error("Getting site list error:", error);
     }
@@ -72,16 +116,28 @@ function FindBySitePage() {
     const formValid = isFormValid();
     const idToNavigate = selectSite || siteIdNameMap[selectId];
     const siteToNavigate = selectId || siteNameIdMap[selectSite];
+
     if (formValid) {
       if (siteToNavigate && idToNavigate) {
-        navigate(`/sites/${siteToNavigate}`, {
-          state: { site_name: idToNavigate },
-        });
+        if (userNameId) {
+          navigate(`/users/${userNameId}/sites/${siteToNavigate}`, {
+            state: { site_name: idToNavigate },
+          });
+        } else {
+          navigate(`/sites/${siteToNavigate}`, {
+            state: { site_name: idToNavigate },
+          });
+        }
       }
     }
   };
+
   const clickRiver = () => {
-    navigate("/rivers");
+    if (userNameId) {
+      navigate(`/users/${userNameId}/rivers`);
+    } else {
+      navigate("/rivers");
+    }
   };
   const handleCancel = () => {
     navigate("/");

@@ -2,23 +2,30 @@ import "./HomePage.scss";
 import { useNavigate } from "react-router-dom";
 function HomePage() {
   const navigate = useNavigate();
+
   const clickSite = () => {
     navigate("/sites");
   };
+
   const clickRiver = () => {
     navigate("/rivers");
   };
+
   const clickUpload = () => {
     const token = sessionStorage.getItem("token");
+    const userNameId = sessionStorage.getItem("username");
+
     if (token) {
-      navigate("/users/upload");
+      navigate(`/users/${userNameId}/upload`);
     } else {
       navigate("/users/login");
     }
   };
+
   const clickPredict = () => {
     navigate("/prediction");
   };
+
   return (
     <div className="directory">
       <div className="directory__hero-section">
@@ -53,9 +60,6 @@ function HomePage() {
             Predict Flow Rate for Current Year
           </button>
         </div>
-        {/* <div className="directory__site-map">
-     
-      </div> */}
       </div>
     </div>
   );

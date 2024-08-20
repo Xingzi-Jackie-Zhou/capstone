@@ -1,0 +1,41 @@
+@use "../../styles/partials/font" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+@use "../../styles/partials/global" as *;
+
+.prediction-page {
+  padding: 1rem;
+  @include tablet {
+    padding: 2.5rem;
+  }
+  @include desktop {
+    padding: 2.5rem 5rem;
+    max-width: 48rem;
+  }
+  &__return-link {
+    margin-bottom: 0.75rem;
+    max-height: 2.5rem;
+    text-decoration: none;
+    @include tablet {
+      display: flex;
+      justify-content: left;
+      align-items: center;
+    }
+  }
+
+  &__return-button {
+    background-color: white;
+    border: 1px solid $light-grey;
+    padding: 0.25rem;
+    margin-bottom: 0.75rem;
+    max-height: 2.5rem;
+    cursor: pointer;
+    @include tablet {
+      width: 27.25rem;
+    }
+    @include desktop {
+      width: 26.5rem;
+    }
+  }
+}

@@ -9,16 +9,38 @@ function FindByRiverPage() {
   const [selectRiver, setSelectRiver] = useState("");
   const [formError, setFormError] = useState(false);
 
+  const userNameId = sessionStorage.getItem("username");
   async function fetchRiverList() {
     try {
-      const response = await axios.get(`${baseApiUrl}/rivers`);
-      const rivers = response.data;
-      const uniqueRiverNames = [...new Set(rivers.map((item) => item.river))]; // Extract unique river names
-      setRiverNames(uniqueRiverNames);
-      console.log(rivers);
-      console.log(riverNames);
+      const token = sessionStorage.getItem("token");
+
+      if (userNameId) {
+        const userResponse = await axios.get(
+          `${baseApiUrl}/users/${userNameId}/rivers`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const userRivers = userResponse.data;
+        const combinedRivers = userRivers;
+
+        const uniqueRiverNames = [
+          ...new Set(combinedRivers?.map((item) => item.river)),
+        ];
+
+        setRiverNames(uniqueRiverNames);
+      } else {
+        const response = await axios.get(`${baseApiUrl}/rivers`);
+        const defaultRivers = response.data;
+        const uniqueRiverNames = [
+          ...new Set(defaultRivers.map((item) => item.river)),
+        ];
+        setRiverNames(uniqueRiverNames);
+      }
     } catch (error) {
-      console.error("Getting river list error:", error);
+      console.error(error);
     }
   }
 
@@ -40,11 +62,19 @@ function FindByRiverPage() {
     event.preventDefault();
     const formValid = isFormValid();
     if (formValid) {
-      navigate(`/rivers/${selectRiver}`);
+      if (userNameId) {
+        navigate(`/users/${userNameId}/rivers/${selectRiver}`);
+      } else {
+        navigate(`/rivers/${selectRiver}`);
+      }
     }
   };
   const clickSite = () => {
-    navigate("/sites");
+    if (userNameId) {
+      navigate(`/users/${userNameId}/sites`);
+    } else {
+      navigate("/sites");
+    }
   };
   const handleCancel = () => {
     navigate("/");

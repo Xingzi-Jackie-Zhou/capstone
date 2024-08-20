@@ -30,7 +30,19 @@
       max-width: 48rem;
     }
   }
-
+  &__step-and-help {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  &__help {
+    @include label-style;
+    padding: 0;
+    max-width: 2rem;
+    max-height: 1.5rem;
+    background-color: white;
+    border: 0.0625rem solid #cccccc;
+  }
   &__content-container {
     display: flex;
     flex-direction: column;
@@ -81,12 +93,10 @@
     padding: 0.75rem 0;
     @include tablet {
       display: flex;
-      //flex-direction: column;
       justify-content: left;
       padding-bottom: 1.25rem;
     }
     @include desktop {
-      // width: 60%;
       max-width: 48rem;
       padding-bottom: 2rem;
     }
