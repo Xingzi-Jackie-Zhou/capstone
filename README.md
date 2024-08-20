@@ -14,6 +14,8 @@ environment monitor people and worker:
 
     -check previous year flow rate, water level, air temperature and preciptation at specific guage site without setting up account.
     -create/upload their own guage file/graph and able to share to other people (need to signup an account for use upload function).
+    -check previous year flow rate, water level, air temperature and preciptation at specific guage site without setting up account.
+    -create/upload their own guage file/graph and able to share to other people (need to signup an account for use upload function).
 
 ### Features
 
@@ -23,6 +25,7 @@ environment monitor people and worker:
 - As a user, I want to able to predict when should I go sampling the site based on previous year flow rate data to minimize the time I go out for nothing.
 - As a logged in user, I want to able to create my own guaging site following instruction and able to share with my other workers.
 - As a logged in user, I want to be able to see all the sites I saved.
+- As a logged in user, I want to be able to see all the sites I saved.
 
 ## Implementation
 
@@ -30,7 +33,9 @@ environment monitor people and worker:
 
 - React
 - MySQL2
+- MySQL2
 - Express
+- node
 - node
 
 - Client libraries:
@@ -38,6 +43,11 @@ environment monitor people and worker:
   - react
   - react-router
   - axios
+    -JWT/Auth for storing users
+    -chart.js
+    -export-from-json
+    -html2canvas
+    -jspdf
     -JWT/Auth for storing users
     -chart.js
     -export-from-json
@@ -51,12 +61,21 @@ environment monitor people and worker:
   - csvtojson
   - multer
   - path
+  - Auth for storing users
+  - csvtojson
+  - multer
+  - path
 
 ### APIs
 
 NO external API. The data used in the web are from https://wateroffice.ec.gc.ca/search/historical_e.html and https://climate.weather.gc.ca/historical_data/search_historic_data_e.html
+NO external API. The data used in the web are from https://wateroffice.ec.gc.ca/search/historical_e.html and https://climate.weather.gc.ca/historical_data/search_historic_data_e.html
 
 ### Sitemap
+
+-home page
+![Image](https://github.com/Xingzi-Jackie-Zhou/capstone/blob/main/src/assest/images/proposal-image/homePage.png)
+-register
 
 #### home page
 
@@ -202,6 +221,9 @@ Does your project include any login or user profile functionality? If so, descri
 
 ## Nice-to-haves
 
+-predict flow rate for a specific site based on previous year, so that user can based on the prediction to decide if they are going to the site to collect data or not.
+-Expand to more guage sites and rivers
+-make user able to edit and delete the sites they upload.
 -predict flow rate for a specific site based on previous year, so that user can based on the prediction to decide if they are going to the site to collect data or not.
 -Expand to more guage sites and rivers
 -make user able to edit and delete the sites they upload.
