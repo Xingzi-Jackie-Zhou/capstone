@@ -1,5 +1,5 @@
 @use "./variables" as *;
-@use "./font.scss" as *;
+@use "./font" as *;
 
 @mixin tablet {
   @media screen and (min-width: $tablet-breakpoint) {

@@ -9,19 +9,18 @@
   align-items: center;
   padding: 1rem;
   background-color: $blue-background;
-  &--align {
-    align-items: start;
-    @include tablet {
-      align-items: center;
-    }
-  }
   @include tablet {
     padding: 1rem 2.5rem;
   }
   @include desktop {
     padding: 1rem 5rem;
   }
-
+  &--align {
+    align-items: start;
+    @include tablet {
+      align-items: center;
+    }
+  }
   &__logo-link,
   &__menu-link {
     text-decoration: none;
