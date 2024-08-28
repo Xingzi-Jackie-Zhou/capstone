@@ -17,7 +17,7 @@ button {
     background-size: cover;
     padding: 1rem;
     filter: brightness(90%);
-    background-image: url("../../assest/images/hero.jpg");
+    background-image: url("../../assest/images/hero.jpg"); //url("../../assest/images/hero.jpg");
     position: relative;
     @include tablet {
       padding: 2.5rem;
@@ -26,6 +26,9 @@ button {
 
   &__theme-and-author {
     position: absolute;
+    width: 85%;
+    top: 3rem;
+    left: 2rem;
     @include tablet {
       top: 9rem;
       left: 4rem;
@@ -44,18 +47,6 @@ button {
     }
     @include desktop {
       @include h2-style;
-    }
-  }
-
-  &__author {
-    display: flex;
-    color: white;
-    @include label-style;
-    @include tablet {
-      @include p-style;
-    }
-    @include desktop {
-      @include h3-style;
     }
   }
 
