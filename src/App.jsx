@@ -15,6 +15,7 @@ import ResultPage from "./pages/ResultPage/ResultPage.jsx";
 import PredictionPage from "./pages/PredictionPage/PredictionPage.jsx";
 import UploadPage from "./pages/UploadPage/UploadPage.jsx";
 
+import ProfileEditPage from "./pages/ProfileEditPage/ProfileEditPage.jsx";
 function App() {
   return (
     <>
@@ -25,6 +26,10 @@ function App() {
           <Route path="/users/signup" element={<SignupPage />} />
           <Route path="/users/login" element={<LoginPage />} />
           <Route path="/users/:userNameId/profile" element={<ProfilePage />} />
+          <Route
+            path="/users/:userNameId/profile/sites/:siteId/edit"
+            element={<ProfileEditPage />}
+          />
           <Route path="/users/:userNameId/upload" element={<UploadPage />} />
 
           <Route path="/sites" element={<FindBySitePage />} />
